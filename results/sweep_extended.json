@@ -1,0 +1,692 @@
+[
+ {
+  "start": "2022-01-01",
+  "end": "2025-08-01",
+  "max_positions": 10,
+  "rows": [
+   {
+    "variant": "v1:baseline",
+    "n_trades": 725,
+    "total_return_pct": 6.23,
+    "cagr_pct": 1.71,
+    "max_drawdown_pct": -12.71,
+    "sharpe": 0.24,
+    "win_rate_pct": 53.5,
+    "avg_trade_pct": 0.102,
+    "profit_factor": 1.06,
+    "avg_hold_days": 3.1,
+    "exit_reasons": {
+     "rsi_strength": 331,
+     "stop": 217,
+     "time": 177
+    }
+   },
+   {
+    "variant": "v10:open_more_setups",
+    "n_trades": 1268,
+    "total_return_pct": 2.67,
+    "cagr_pct": 0.74,
+    "max_drawdown_pct": -24.54,
+    "sharpe": 0.12,
+    "win_rate_pct": 57.3,
+    "avg_trade_pct": 0.053,
+    "profit_factor": 1.02,
+    "avg_hold_days": 3.5,
+    "exit_reasons": {
+     "rsi_strength": 676,
+     "time": 398,
+     "stop": 194
+    }
+   },
+   {
+    "variant": "v13:broad_deep_run",
+    "n_trades": 831,
+    "total_return_pct": 21.06,
+    "cagr_pct": 5.52,
+    "max_drawdown_pct": -18.96,
+    "sharpe": 0.53,
+    "win_rate_pct": 58.4,
+    "avg_trade_pct": 0.26,
+    "profit_factor": 1.17,
+    "avg_hold_days": 4.4,
+    "exit_reasons": {
+     "rsi_strength": 423,
+     "time": 323,
+     "stop": 85
+    }
+   },
+   {
+    "variant": "v15:broad_deep_nostop",
+    "n_trades": 806,
+    "total_return_pct": 19.19,
+    "cagr_pct": 5.05,
+    "max_drawdown_pct": -19.25,
+    "sharpe": 0.49,
+    "win_rate_pct": 58.4,
+    "avg_trade_pct": 0.254,
+    "profit_factor": 1.17,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "rsi_strength": 413,
+     "time": 393
+    }
+   }
+  ]
+ },
+ {
+  "start": "2022-01-01",
+  "end": "2025-08-01",
+  "max_positions": 10,
+  "regime": "spy200",
+  "rank": "rsi",
+  "rows": [
+   {
+    "variant": "v13:broad_deep_run",
+    "n_trades": 683,
+    "total_return_pct": 45.96,
+    "cagr_pct": 11.21,
+    "max_drawdown_pct": -11.94,
+    "sharpe": 1.09,
+    "win_rate_pct": 61.8,
+    "avg_trade_pct": 0.586,
+    "profit_factor": 1.42,
+    "avg_hold_days": 4.4,
+    "exit_reasons": {
+     "rsi_strength": 376,
+     "time": 242,
+     "stop": 65
+    }
+   },
+   {
+    "variant": "v15:broad_deep_nostop",
+    "n_trades": 663,
+    "total_return_pct": 43.18,
+    "cagr_pct": 10.61,
+    "max_drawdown_pct": -12.25,
+    "sharpe": 1.06,
+    "win_rate_pct": 61.8,
+    "avg_trade_pct": 0.582,
+    "profit_factor": 1.42,
+    "avg_hold_days": 4.5,
+    "exit_reasons": {
+     "rsi_strength": 367,
+     "time": 296
+    }
+   }
+  ]
+ },
+ {
+  "start": "2022-01-01",
+  "end": "2025-08-01",
+  "max_positions": 10,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v13:broad_deep_run",
+    "n_trades": 678,
+    "total_return_pct": 46.44,
+    "cagr_pct": 11.31,
+    "max_drawdown_pct": -11.2,
+    "sharpe": 1.11,
+    "win_rate_pct": 60.8,
+    "avg_trade_pct": 0.596,
+    "profit_factor": 1.43,
+    "avg_hold_days": 4.4,
+    "exit_reasons": {
+     "rsi_strength": 371,
+     "time": 243,
+     "stop": 64
+    }
+   }
+  ]
+ },
+ {
+  "start": "2022-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "rsi",
+  "rows": [
+   {
+    "variant": "v13:broad_deep_run",
+    "n_trades": 450,
+    "total_return_pct": 62.08,
+    "cagr_pct": 14.53,
+    "max_drawdown_pct": -16.01,
+    "sharpe": 1.1,
+    "win_rate_pct": 62.2,
+    "avg_trade_pct": 0.585,
+    "profit_factor": 1.42,
+    "avg_hold_days": 4.4,
+    "exit_reasons": {
+     "rsi_strength": 245,
+     "time": 163,
+     "stop": 42
+    }
+   }
+  ]
+ },
+ {
+  "start": "2022-01-01",
+  "end": "2025-08-01",
+  "max_positions": 15,
+  "regime": "spy200",
+  "rank": "rsi",
+  "rows": [
+   {
+    "variant": "v13:broad_deep_run",
+    "n_trades": 781,
+    "total_return_pct": 30.93,
+    "cagr_pct": 7.87,
+    "max_drawdown_pct": -10.45,
+    "sharpe": 0.99,
+    "win_rate_pct": 60.3,
+    "avg_trade_pct": 0.545,
+    "profit_factor": 1.39,
+    "avg_hold_days": 4.4,
+    "exit_reasons": {
+     "rsi_strength": 423,
+     "time": 281,
+     "stop": 77
+    }
+   }
+  ]
+ },
+ {
+  "start": "2022-01-01",
+  "end": "2025-08-01",
+  "max_positions": 10,
+  "regime": "spy100",
+  "rank": "rsi",
+  "rows": [
+   {
+    "variant": "v13:broad_deep_run",
+    "n_trades": 667,
+    "total_return_pct": 42.04,
+    "cagr_pct": 10.36,
+    "max_drawdown_pct": -11.41,
+    "sharpe": 1.01,
+    "win_rate_pct": 61.0,
+    "avg_trade_pct": 0.56,
+    "profit_factor": 1.4,
+    "avg_hold_days": 4.4,
+    "exit_reasons": {
+     "rsi_strength": 363,
+     "time": 242,
+     "stop": 62
+    }
+   }
+  ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2021-12-31",
+  "max_positions": 10,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v13:broad_deep_run",
+    "n_trades": 944,
+    "total_return_pct": -10.12,
+    "cagr_pct": -2.64,
+    "max_drawdown_pct": -24.55,
+    "sharpe": -0.13,
+    "win_rate_pct": 56.7,
+    "avg_trade_pct": -0.081,
+    "profit_factor": 0.93,
+    "avg_hold_days": 4.3,
+    "exit_reasons": {
+     "rsi_strength": 440,
+     "time": 349,
+     "stop": 155
+    }
+   },
+   {
+    "variant": "v15:broad_deep_nostop",
+    "n_trades": 880,
+    "total_return_pct": 2.01,
+    "cagr_pct": 0.5,
+    "max_drawdown_pct": -18.75,
+    "sharpe": 0.1,
+    "win_rate_pct": 59.1,
+    "avg_trade_pct": 0.058,
+    "profit_factor": 1.02,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "time": 442,
+     "rsi_strength": 438
+    }
+   }
+  ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2021-12-31",
+  "max_positions": 10,
+  "regime": "spy200+50",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v15:broad_deep_nostop",
+    "n_trades": 785,
+    "total_return_pct": -8.96,
+    "cagr_pct": -2.32,
+    "max_drawdown_pct": -21.04,
+    "sharpe": -0.14,
+    "win_rate_pct": 56.9,
+    "avg_trade_pct": -0.09,
+    "profit_factor": 0.92,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "time": 406,
+     "rsi_strength": 379
+    }
+   },
+   {
+    "variant": "v17:calm_deep_nostop",
+    "n_trades": 775,
+    "total_return_pct": -9.78,
+    "cagr_pct": -2.54,
+    "max_drawdown_pct": -20.8,
+    "sharpe": -0.17,
+    "win_rate_pct": 56.8,
+    "avg_trade_pct": -0.104,
+    "profit_factor": 0.91,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "time": 400,
+     "rsi_strength": 375
+    }
+   },
+   {
+    "variant": "v18:calm_deep_short",
+    "n_trades": 874,
+    "total_return_pct": -10.92,
+    "cagr_pct": -2.85,
+    "max_drawdown_pct": -21.89,
+    "sharpe": -0.23,
+    "win_rate_pct": 54.0,
+    "avg_trade_pct": -0.112,
+    "profit_factor": 0.9,
+    "avg_hold_days": 3.5,
+    "exit_reasons": {
+     "time": 575,
+     "rsi_strength": 299
+    }
+   },
+   {
+    "variant": "v19:calm_deep_disaster",
+    "n_trades": 793,
+    "total_return_pct": -13.53,
+    "cagr_pct": -3.57,
+    "max_drawdown_pct": -24.38,
+    "sharpe": -0.27,
+    "win_rate_pct": 56.1,
+    "avg_trade_pct": -0.154,
+    "profit_factor": 0.88,
+    "avg_hold_days": 4.5,
+    "exit_reasons": {
+     "rsi_strength": 375,
+     "time": 346,
+     "stop": 72
+    }
+   }
+  ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2021-12-31",
+  "max_positions": 10,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v20:confirm_deep",
+    "n_trades": 515,
+    "total_return_pct": -16.8,
+    "cagr_pct": -4.5,
+    "max_drawdown_pct": -21.19,
+    "sharpe": -0.51,
+    "win_rate_pct": 61.9,
+    "avg_trade_pct": -0.336,
+    "profit_factor": 0.78,
+    "avg_hold_days": 4.3,
+    "exit_reasons": {
+     "rsi_strength": 297,
+     "time": 218
+    }
+   },
+   {
+    "variant": "v21:calmer_deep",
+    "n_trades": 804,
+    "total_return_pct": -8.7,
+    "cagr_pct": -2.25,
+    "max_drawdown_pct": -17.15,
+    "sharpe": -0.14,
+    "win_rate_pct": 58.1,
+    "avg_trade_pct": -0.084,
+    "profit_factor": 0.92,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "time": 405,
+     "rsi_strength": 399
+    }
+   },
+   {
+    "variant": "v22:shallow_only",
+    "n_trades": 848,
+    "total_return_pct": -0.52,
+    "cagr_pct": -0.13,
+    "max_drawdown_pct": -19.57,
+    "sharpe": 0.05,
+    "win_rate_pct": 58.6,
+    "avg_trade_pct": 0.026,
+    "profit_factor": 1.0,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "rsi_strength": 430,
+     "time": 418
+    }
+   }
+  ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2021-12-31",
+  "max_positions": 10,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v23:shallow_closestop5",
+    "n_trades": 907,
+    "total_return_pct": -15.98,
+    "cagr_pct": -4.26,
+    "max_drawdown_pct": -28.53,
+    "sharpe": -0.26,
+    "win_rate_pct": 56.3,
+    "avg_trade_pct": -0.16,
+    "profit_factor": 0.87,
+    "avg_hold_days": 4.3,
+    "exit_reasons": {
+     "rsi_strength": 435,
+     "time": 315,
+     "close_stop": 157
+    }
+   },
+   {
+    "variant": "v24:shallow_closestop7",
+    "n_trades": 875,
+    "total_return_pct": -7.6,
+    "cagr_pct": -1.96,
+    "max_drawdown_pct": -24.62,
+    "sharpe": -0.09,
+    "win_rate_pct": 57.7,
+    "avg_trade_pct": -0.061,
+    "profit_factor": 0.94,
+    "avg_hold_days": 4.5,
+    "exit_reasons": {
+     "rsi_strength": 435,
+     "time": 362,
+     "close_stop": 78
+    }
+   },
+   {
+    "variant": "v25:shallow_bank_early",
+    "n_trades": 973,
+    "total_return_pct": -17.27,
+    "cagr_pct": -4.63,
+    "max_drawdown_pct": -26.07,
+    "sharpe": -0.31,
+    "win_rate_pct": 61.6,
+    "avg_trade_pct": -0.167,
+    "profit_factor": 0.86,
+    "avg_hold_days": 3.5,
+    "exit_reasons": {
+     "rsi_strength": 650,
+     "time": 163,
+     "close_stop": 160
+    }
+   }
+  ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2021-12-31",
+  "max_positions": 10,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v26:leaders_15",
+    "n_trades": 392,
+    "total_return_pct": 11.52,
+    "cagr_pct": 2.77,
+    "max_drawdown_pct": -16.35,
+    "sharpe": 0.35,
+    "win_rate_pct": 58.7,
+    "avg_trade_pct": 0.31,
+    "profit_factor": 1.18,
+    "avg_hold_days": 4.8,
+    "exit_reasons": {
+     "time": 211,
+     "rsi_strength": 181
+    }
+   },
+   {
+    "variant": "v27:leaders_25",
+    "n_trades": 136,
+    "total_return_pct": 6.59,
+    "cagr_pct": 1.61,
+    "max_drawdown_pct": -6.45,
+    "sharpe": 0.39,
+    "win_rate_pct": 55.1,
+    "avg_trade_pct": 0.5,
+    "profit_factor": 1.25,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "time": 71,
+     "rsi_strength": 65
+    }
+   },
+   {
+    "variant": "v28:near_high",
+    "n_trades": 790,
+    "total_return_pct": -6.42,
+    "cagr_pct": -1.65,
+    "max_drawdown_pct": -20.58,
+    "sharpe": -0.08,
+    "win_rate_pct": 58.4,
+    "avg_trade_pct": -0.05,
+    "profit_factor": 0.94,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "rsi_strength": 401,
+     "time": 389
+    }
+   }
+  ]
+ },
+ {
+  "start": "2022-01-01",
+  "end": "2025-08-01",
+  "max_positions": 10,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v26:leaders_15",
+    "n_trades": 311,
+    "total_return_pct": 18.19,
+    "cagr_pct": 4.81,
+    "max_drawdown_pct": -7.2,
+    "sharpe": 0.8,
+    "win_rate_pct": 61.1,
+    "avg_trade_pct": 0.565,
+    "profit_factor": 1.4,
+    "avg_hold_days": 4.6,
+    "exit_reasons": {
+     "rsi_strength": 176,
+     "time": 135
+    }
+   },
+   {
+    "variant": "v27:leaders_25",
+    "n_trades": 106,
+    "total_return_pct": 9.31,
+    "cagr_pct": 2.53,
+    "max_drawdown_pct": -4.0,
+    "sharpe": 0.69,
+    "win_rate_pct": 60.4,
+    "avg_trade_pct": 0.873,
+    "profit_factor": 1.52,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "rsi_strength": 58,
+     "time": 48
+    }
+   }
+  ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2021-12-31",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v26:leaders_15",
+    "n_trades": 304,
+    "total_return_pct": 15.46,
+    "cagr_pct": 3.66,
+    "max_drawdown_pct": -26.52,
+    "sharpe": 0.35,
+    "win_rate_pct": 58.9,
+    "avg_trade_pct": 0.288,
+    "profit_factor": 1.16,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "time": 156,
+     "rsi_strength": 148
+    }
+   },
+   {
+    "variant": "v29:leaders_20",
+    "n_trades": 197,
+    "total_return_pct": 22.37,
+    "cagr_pct": 5.18,
+    "max_drawdown_pct": -18.61,
+    "sharpe": 0.54,
+    "win_rate_pct": 58.4,
+    "avg_trade_pct": 0.572,
+    "profit_factor": 1.3,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "time": 99,
+     "rsi_strength": 98
+    }
+   }
+  ]
+ },
+ {
+  "start": "2022-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v26:leaders_15",
+    "n_trades": 254,
+    "total_return_pct": 38.69,
+    "cagr_pct": 9.62,
+    "max_drawdown_pct": -13.2,
+    "sharpe": 0.95,
+    "win_rate_pct": 62.2,
+    "avg_trade_pct": 0.689,
+    "profit_factor": 1.46,
+    "avg_hold_days": 4.6,
+    "exit_reasons": {
+     "rsi_strength": 147,
+     "time": 107
+    }
+   },
+   {
+    "variant": "v29:leaders_20",
+    "n_trades": 151,
+    "total_return_pct": 19.76,
+    "cagr_pct": 5.2,
+    "max_drawdown_pct": -13.17,
+    "sharpe": 0.68,
+    "win_rate_pct": 61.6,
+    "avg_trade_pct": 0.641,
+    "profit_factor": 1.36,
+    "avg_hold_days": 4.6,
+    "exit_reasons": {
+     "rsi_strength": 87,
+     "time": 64
+    }
+   }
+  ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "v29:leaders_20",
+    "n_trades": 353,
+    "total_return_pct": 37.73,
+    "cagr_pct": 4.33,
+    "max_drawdown_pct": -18.61,
+    "sharpe": 0.5,
+    "win_rate_pct": 58.9,
+    "avg_trade_pct": 0.506,
+    "profit_factor": 1.26,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "rsi_strength": 185,
+     "time": 168
+    }
+   },
+   {
+    "variant": "v30:leaders_20_hold8",
+    "n_trades": 351,
+    "total_return_pct": 16.21,
+    "cagr_pct": 2.01,
+    "max_drawdown_pct": -18.49,
+    "sharpe": 0.25,
+    "win_rate_pct": 61.5,
+    "avg_trade_pct": 0.317,
+    "profit_factor": 1.15,
+    "avg_hold_days": 4.9,
+    "exit_reasons": {
+     "rsi_strength": 243,
+     "time": 108
+    }
+   },
+   {
+    "variant": "v31:leaders_20_hold10",
+    "n_trades": 326,
+    "total_return_pct": 22.16,
+    "cagr_pct": 2.68,
+    "max_drawdown_pct": -25.59,
+    "sharpe": 0.3,
+    "win_rate_pct": 64.4,
+    "avg_trade_pct": 0.445,
+    "profit_factor": 1.2,
+    "avg_hold_days": 6.3,
+    "exit_reasons": {
+     "rsi_strength": 231,
+     "time": 95
+    }
+   }
+  ]
+ }
+]

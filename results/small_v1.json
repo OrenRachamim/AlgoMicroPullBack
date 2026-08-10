@@ -1,0 +1,1494 @@
+{
+ "variant": "v1",
+ "params": {
+  "name": "baseline",
+  "require_above_sma50": true,
+  "require_sma50_above_sma100": true,
+  "require_rising_sma50": true,
+  "min_ret63": 0.05,
+  "macd_mode": "line_positive",
+  "require_rsi14_min": 40.0,
+  "rsi_entry_col": "rsi3",
+  "rsi_entry_max": 30.0,
+  "min_down_days": 2,
+  "max_pullback_pct": 0.1,
+  "min_pullback_pct": 0.01,
+  "require_above_support": true,
+  "max_dist_ema20": 0.03,
+  "entry_mode": "breakout",
+  "breakout_buffer": 0.001,
+  "stop_atr_mult": 1.5,
+  "stop_pct": 0.0,
+  "target_pct": 0.0,
+  "target_atr_mult": 0.0,
+  "exit_rsi_col": "rsi3",
+  "exit_rsi_min": 75.0,
+  "max_hold_days": 5,
+  "min_price": 5.0,
+  "min_dollar_vol": 20000000.0
+ },
+ "universe": "small",
+ "start": "2022-01-01",
+ "end": "2025-08-01",
+ "stats": {
+  "n_trades": 144,
+  "total_return_pct": 5.1,
+  "cagr_pct": 1.41,
+  "max_drawdown_pct": -6.36,
+  "sharpe": 0.36,
+  "exposure_days": 897,
+  "win_rate_pct": 58.3,
+  "avg_trade_pct": 0.289,
+  "avg_win_pct": 2.868,
+  "avg_loss_pct": -3.32,
+  "profit_factor": 1.2,
+  "avg_hold_days": 3.0,
+  "exit_reasons": {
+   "rsi_strength": 74,
+   "stop": 42,
+   "time": 28
+  }
+ },
+ "trades": [
+  {
+   "ticker": "XOM",
+   "entry_date": "2022-02-22",
+   "exit_date": "2022-02-23",
+   "entry": 68.9546,
+   "exit": 66.1763,
+   "ret_pct": -4.221,
+   "bars": 1,
+   "reason": "stop"
+  },
+  {
+   "ticker": "MRK",
+   "entry_date": "2022-04-28",
+   "exit_date": "2022-04-29",
+   "entry": 75.3902,
+   "exit": 77.975,
+   "ret_pct": 3.222,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "MRK",
+   "entry_date": "2022-06-07",
+   "exit_date": "2022-06-09",
+   "entry": 79.7867,
+   "exit": 77.3208,
+   "ret_pct": -3.284,
+   "bars": 2,
+   "reason": "stop"
+  },
+  {
+   "ticker": "LLY",
+   "entry_date": "2022-06-06",
+   "exit_date": "2022-06-10",
+   "entry": 304.8443,
+   "exit": 289.4632,
+   "ret_pct": -5.235,
+   "bars": 4,
+   "reason": "stop"
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2022-06-14",
+   "exit_date": "2022-06-15",
+   "entry": 85.5725,
+   "exit": 81.5727,
+   "ret_pct": -4.865,
+   "bars": 1,
+   "reason": "stop"
+  },
+  {
+   "ticker": "COST",
+   "entry_date": "2022-09-01",
+   "exit_date": "2022-09-09",
+   "entry": 502.5243,
+   "exit": 511.8086,
+   "ret_pct": 1.644,
+   "bars": 5,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2022-11-22",
+   "exit_date": "2022-11-30",
+   "entry": 99.8637,
+   "exit": 99.0894,
+   "ret_pct": -0.974,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "NFLX",
+   "entry_date": "2022-11-30",
+   "exit_date": "2022-12-01",
+   "entry": 28.3243,
+   "exit": 31.695,
+   "ret_pct": 11.677,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2022-12-06",
+   "exit_date": "2022-12-07",
+   "entry": 123.3548,
+   "exit": 119.3838,
+   "ret_pct": -3.413,
+   "bars": 1,
+   "reason": "stop"
+  },
+  {
+   "ticker": "LLY",
+   "entry_date": "2022-12-20",
+   "exit_date": "2022-12-21",
+   "entry": 350.4193,
+   "exit": 358.1568,
+   "ret_pct": 2.004,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2022-12-19",
+   "exit_date": "2022-12-27",
+   "entry": 119.074,
+   "exit": 120.64,
+   "ret_pct": 1.113,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "HD",
+   "entry_date": "2022-12-21",
+   "exit_date": "2022-12-29",
+   "entry": 290.5576,
+   "exit": 292.7136,
+   "ret_pct": 0.541,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2023-01-20",
+   "exit_date": "2023-01-24",
+   "entry": 54.3584,
+   "exit": 55.7302,
+   "ret_pct": 2.319,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "ADBE",
+   "entry_date": "2023-02-13",
+   "exit_date": "2023-02-17",
+   "entry": 374.8945,
+   "exit": 358.2261,
+   "ret_pct": -4.637,
+   "bars": 4,
+   "reason": "stop"
+  },
+  {
+   "ticker": "AMD",
+   "entry_date": "2023-02-13",
+   "exit_date": "2023-02-17",
+   "entry": 82.7927,
+   "exit": 77.397,
+   "ret_pct": -6.704,
+   "bars": 4,
+   "reason": "stop"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2023-02-13",
+   "exit_date": "2023-02-21",
+   "entry": 57.0665,
+   "exit": 55.3977,
+   "ret_pct": -3.118,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2023-03-29",
+   "exit_date": "2023-03-31",
+   "entry": 60.7127,
+   "exit": 61.5532,
+   "ret_pct": 1.182,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2023-04-06",
+   "exit_date": "2023-04-14",
+   "entry": 26.9697,
+   "exit": 26.7032,
+   "ret_pct": -1.186,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "AMD",
+   "entry_date": "2023-04-10",
+   "exit_date": "2023-04-17",
+   "entry": 93.0029,
+   "exit": 89.87,
+   "ret_pct": -3.562,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2023-04-12",
+   "exit_date": "2023-04-17",
+   "entry": 187.4082,
+   "exit": 193.7284,
+   "ret_pct": 3.166,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2023-04-13",
+   "exit_date": "2023-04-18",
+   "entry": 159.7583,
+   "exit": 163.9417,
+   "ret_pct": 2.414,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "ADBE",
+   "entry_date": "2023-04-12",
+   "exit_date": "2023-04-19",
+   "entry": 376.42,
+   "exit": 380.11,
+   "ret_pct": 0.779,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2023-04-20",
+   "exit_date": "2023-04-27",
+   "entry": 104.1614,
+   "exit": 106.6444,
+   "ret_pct": 2.179,
+   "bars": 5,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "META",
+   "entry_date": "2023-04-24",
+   "exit_date": "2023-04-27",
+   "entry": 211.8199,
+   "exit": 236.4833,
+   "ret_pct": 11.421,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2023-04-26",
+   "exit_date": "2023-04-27",
+   "entry": 289.2097,
+   "exit": 297.1345,
+   "ret_pct": 2.535,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2023-04-26",
+   "exit_date": "2023-04-28",
+   "entry": 27.2184,
+   "exit": 27.6922,
+   "ret_pct": 1.537,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2023-04-27",
+   "exit_date": "2023-04-28",
+   "entry": 162.9326,
+   "exit": 167.103,
+   "ret_pct": 2.355,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2023-04-26",
+   "exit_date": "2023-05-03",
+   "entry": 191.0096,
+   "exit": 189.3344,
+   "ret_pct": -1.075,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2023-04-27",
+   "exit_date": "2023-05-04",
+   "entry": 105.5207,
+   "exit": 103.7699,
+   "ret_pct": -1.856,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2023-05-05",
+   "exit_date": "2023-05-08",
+   "entry": 168.3832,
+   "exit": 170.8649,
+   "ret_pct": 1.271,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2023-05-05",
+   "exit_date": "2023-05-09",
+   "entry": 191.4425,
+   "exit": 197.7587,
+   "ret_pct": 3.093,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "MRK",
+   "entry_date": "2023-05-19",
+   "exit_date": "2023-05-25",
+   "entry": 104.3232,
+   "exit": 101.6132,
+   "ret_pct": -2.792,
+   "bars": 4,
+   "reason": "stop"
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2023-06-09",
+   "exit_date": "2023-06-15",
+   "entry": 122.2691,
+   "exit": 123.9905,
+   "ret_pct": 1.205,
+   "bars": 4,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2023-06-22",
+   "exit_date": "2023-06-26",
+   "entry": 121.7035,
+   "exit": 117.3984,
+   "ret_pct": -3.73,
+   "bars": 2,
+   "reason": "stop"
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2023-06-26",
+   "exit_date": "2023-06-29",
+   "entry": 129.5316,
+   "exit": 133.3536,
+   "ret_pct": 2.745,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2023-06-26",
+   "exit_date": "2023-06-29",
+   "entry": 80.7207,
+   "exit": 83.201,
+   "ret_pct": 2.867,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "NFLX",
+   "entry_date": "2023-06-23",
+   "exit_date": "2023-06-30",
+   "entry": 42.5135,
+   "exit": 44.049,
+   "ret_pct": 3.405,
+   "bars": 5,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2023-06-28",
+   "exit_date": "2023-07-05",
+   "entry": 118.1514,
+   "exit": 120.6799,
+   "ret_pct": 1.936,
+   "bars": 4,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2023-07-10",
+   "exit_date": "2023-07-11",
+   "entry": 82.842,
+   "exit": 85.08,
+   "ret_pct": 2.496,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2023-07-12",
+   "exit_date": "2023-07-17",
+   "entry": 187.0576,
+   "exit": 191.308,
+   "ret_pct": 2.068,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "META",
+   "entry_date": "2023-07-25",
+   "exit_date": "2023-07-27",
+   "entry": 295.225,
+   "exit": 308.9966,
+   "ret_pct": 4.456,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "ADBE",
+   "entry_date": "2023-07-28",
+   "exit_date": "2023-07-31",
+   "entry": 528.4279,
+   "exit": 546.17,
+   "ret_pct": 3.151,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2023-08-07",
+   "exit_date": "2023-08-09",
+   "entry": 86.2822,
+   "exit": 83.3824,
+   "ret_pct": -3.554,
+   "bars": 2,
+   "reason": "stop"
+  },
+  {
+   "ticker": "COST",
+   "entry_date": "2023-08-03",
+   "exit_date": "2023-08-10",
+   "entry": 534.4625,
+   "exit": 538.5905,
+   "ret_pct": 0.571,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2023-08-03",
+   "exit_date": "2023-08-10",
+   "entry": 145.8922,
+   "exit": 143.7525,
+   "ret_pct": -1.664,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "ADBE",
+   "entry_date": "2023-08-10",
+   "exit_date": "2023-08-17",
+   "entry": 521.4909,
+   "exit": 511.67,
+   "ret_pct": -2.079,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2023-08-17",
+   "exit_date": "2023-08-23",
+   "entry": 129.2641,
+   "exit": 131.2066,
+   "ret_pct": 1.3,
+   "bars": 4,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "ADBE",
+   "entry_date": "2023-08-21",
+   "exit_date": "2023-08-23",
+   "entry": 510.56,
+   "exit": 530.71,
+   "ret_pct": 3.739,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2023-08-21",
+   "exit_date": "2023-08-28",
+   "entry": 134.2041,
+   "exit": 133.14,
+   "ret_pct": -0.991,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2023-09-08",
+   "exit_date": "2023-09-15",
+   "entry": 46.304,
+   "exit": 43.8183,
+   "ret_pct": -5.557,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "HD",
+   "entry_date": "2023-09-14",
+   "exit_date": "2023-09-15",
+   "entry": 306.2,
+   "exit": 300.3826,
+   "ret_pct": -2.096,
+   "bars": 1,
+   "reason": "stop"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2023-09-20",
+   "exit_date": "2023-09-21",
+   "entry": 138.9788,
+   "exit": 131.94,
+   "ret_pct": -5.254,
+   "bars": 1,
+   "reason": "stop"
+  },
+  {
+   "ticker": "META",
+   "entry_date": "2023-10-23",
+   "exit_date": "2023-10-25",
+   "entry": 312.8678,
+   "exit": 299.6768,
+   "ret_pct": -4.408,
+   "bars": 2,
+   "reason": "stop"
+  },
+  {
+   "ticker": "LLY",
+   "entry_date": "2023-10-24",
+   "exit_date": "2023-10-27",
+   "entry": 577.746,
+   "exit": 552.3198,
+   "ret_pct": -4.592,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "UNH",
+   "entry_date": "2023-11-21",
+   "exit_date": "2023-11-22",
+   "entry": 508.1222,
+   "exit": 513.782,
+   "ret_pct": 0.912,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2023-11-29",
+   "exit_date": "2023-12-01",
+   "entry": 92.309,
+   "exit": 88.9169,
+   "ret_pct": -3.867,
+   "bars": 2,
+   "reason": "stop"
+  },
+  {
+   "ticker": "UNH",
+   "entry_date": "2023-11-30",
+   "exit_date": "2023-12-07",
+   "entry": 512.4987,
+   "exit": 519.8107,
+   "ret_pct": 1.224,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "AMD",
+   "entry_date": "2023-12-06",
+   "exit_date": "2023-12-07",
+   "entry": 120.69,
+   "exit": 128.37,
+   "ret_pct": 6.151,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "META",
+   "entry_date": "2023-12-05",
+   "exit_date": "2023-12-08",
+   "entry": 318.3849,
+   "exit": 329.8534,
+   "ret_pct": 3.395,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2023-12-06",
+   "exit_date": "2023-12-08",
+   "entry": 89.2588,
+   "exit": 91.5806,
+   "ret_pct": 2.396,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMD",
+   "entry_date": "2023-12-07",
+   "exit_date": "2023-12-08",
+   "entry": 122.9528,
+   "exit": 128.92,
+   "ret_pct": 4.644,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "ADBE",
+   "entry_date": "2023-12-06",
+   "exit_date": "2023-12-11",
+   "entry": 608.06,
+   "exit": 625.2,
+   "ret_pct": 2.613,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2023-12-05",
+   "exit_date": "2023-12-12",
+   "entry": 362.8397,
+   "exit": 367.2446,
+   "ret_pct": 1.012,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2024-01-04",
+   "exit_date": "2024-01-08",
+   "entry": 48.1466,
+   "exit": 52.1603,
+   "ret_pct": 8.12,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMD",
+   "entry_date": "2024-01-04",
+   "exit_date": "2024-01-08",
+   "entry": 137.5674,
+   "exit": 146.18,
+   "ret_pct": 6.048,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "V",
+   "entry_date": "2024-01-04",
+   "exit_date": "2024-01-08",
+   "entry": 254.2871,
+   "exit": 257.6444,
+   "ret_pct": 1.118,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2024-01-05",
+   "exit_date": "2024-01-09",
+   "entry": 248.5919,
+   "exit": 256.8956,
+   "ret_pct": 3.134,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2024-01-08",
+   "exit_date": "2024-01-09",
+   "entry": 365.3338,
+   "exit": 368.6277,
+   "ret_pct": 0.7,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2024-01-17",
+   "exit_date": "2024-01-24",
+   "entry": 159.6525,
+   "exit": 161.7798,
+   "ret_pct": 1.13,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "COST",
+   "entry_date": "2024-01-26",
+   "exit_date": "2024-01-30",
+   "entry": 676.6635,
+   "exit": 690.0095,
+   "ret_pct": 1.769,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-02-01",
+   "exit_date": "2024-02-02",
+   "entry": 159.169,
+   "exit": 171.81,
+   "ret_pct": 7.726,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2024-02-01",
+   "exit_date": "2024-02-05",
+   "entry": 116.7599,
+   "exit": 121.1133,
+   "ret_pct": 3.521,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "NFLX",
+   "entry_date": "2024-02-07",
+   "exit_date": "2024-02-14",
+   "entry": 56.6906,
+   "exit": 57.933,
+   "ret_pct": 1.987,
+   "bars": 5,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "NFLX",
+   "entry_date": "2024-02-14",
+   "exit_date": "2024-02-15",
+   "entry": 56.726,
+   "exit": 59.346,
+   "ret_pct": 4.41,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2024-02-14",
+   "exit_date": "2024-02-20",
+   "entry": 402.6566,
+   "exit": 392.2428,
+   "ret_pct": -2.781,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2024-02-14",
+   "exit_date": "2024-02-22",
+   "entry": 280.1532,
+   "exit": 288.6561,
+   "ret_pct": 2.829,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-02-21",
+   "exit_date": "2024-02-22",
+   "entry": 168.94,
+   "exit": 174.58,
+   "ret_pct": 3.132,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2024-02-22",
+   "exit_date": "2024-02-23",
+   "entry": 74.8919,
+   "exit": 78.6772,
+   "ret_pct": 4.844,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2024-02-22",
+   "exit_date": "2024-02-26",
+   "entry": 287.0342,
+   "exit": 295.2815,
+   "ret_pct": 2.668,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMD",
+   "entry_date": "2024-02-22",
+   "exit_date": "2024-02-29",
+   "entry": 173.2,
+   "exit": 192.53,
+   "ret_pct": 10.938,
+   "bars": 5,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2024-02-22",
+   "exit_date": "2024-02-29",
+   "entry": 403.1162,
+   "exit": 406.5067,
+   "ret_pct": 0.64,
+   "bars": 5,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "LLY",
+   "entry_date": "2024-03-01",
+   "exit_date": "2024-03-04",
+   "entry": 757.1369,
+   "exit": 780.0375,
+   "ret_pct": 2.819,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-03-07",
+   "exit_date": "2024-03-11",
+   "entry": 176.6365,
+   "exit": 171.5036,
+   "ret_pct": -3.1,
+   "bars": 2,
+   "reason": "stop"
+  },
+  {
+   "ticker": "V",
+   "entry_date": "2024-03-06",
+   "exit_date": "2024-03-12",
+   "entry": 276.5408,
+   "exit": 279.1453,
+   "ret_pct": 0.74,
+   "bars": 4,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2024-03-07",
+   "exit_date": "2024-03-12",
+   "entry": 399.1164,
+   "exit": 408.1184,
+   "ret_pct": 2.051,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-03-12",
+   "exit_date": "2024-03-14",
+   "entry": 174.6445,
+   "exit": 178.75,
+   "ret_pct": 2.146,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2024-03-12",
+   "exit_date": "2024-03-15",
+   "entry": 127.3389,
+   "exit": 120.2393,
+   "ret_pct": -5.764,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "HD",
+   "entry_date": "2024-03-12",
+   "exit_date": "2024-03-19",
+   "entry": 352.6681,
+   "exit": 358.3895,
+   "ret_pct": 1.419,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "META",
+   "entry_date": "2024-03-12",
+   "exit_date": "2024-03-19",
+   "entry": 494.0074,
+   "exit": 492.4421,
+   "ret_pct": -0.516,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "HD",
+   "entry_date": "2024-03-19",
+   "exit_date": "2024-03-20",
+   "entry": 357.0365,
+   "exit": 363.1125,
+   "ret_pct": 1.499,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2024-03-18",
+   "exit_date": "2024-03-21",
+   "entry": 295.6278,
+   "exit": 303.5415,
+   "ret_pct": 2.472,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "V",
+   "entry_date": "2024-03-26",
+   "exit_date": "2024-03-27",
+   "entry": 279.3518,
+   "exit": 273.8049,
+   "ret_pct": -2.181,
+   "bars": 1,
+   "reason": "stop"
+  },
+  {
+   "ticker": "META",
+   "entry_date": "2024-04-01",
+   "exit_date": "2024-04-03",
+   "entry": 489.6068,
+   "exit": 502.8618,
+   "ret_pct": 2.502,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2024-04-01",
+   "exit_date": "2024-04-04",
+   "entry": 298.3373,
+   "exit": 288.7973,
+   "ret_pct": -3.391,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2024-04-01",
+   "exit_date": "2024-04-08",
+   "entry": 416.6389,
+   "exit": 417.2678,
+   "ret_pct": -0.049,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2024-04-04",
+   "exit_date": "2024-04-09",
+   "entry": 90.3081,
+   "exit": 85.0782,
+   "ret_pct": -5.979,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "META",
+   "entry_date": "2024-04-18",
+   "exit_date": "2024-04-19",
+   "entry": 499.8084,
+   "exit": 478.9133,
+   "ret_pct": -4.372,
+   "bars": 1,
+   "reason": "stop"
+  },
+  {
+   "ticker": "MRK",
+   "entry_date": "2024-04-15",
+   "exit_date": "2024-04-22",
+   "entry": 118.3915,
+   "exit": 118.1151,
+   "ret_pct": -0.433,
+   "bars": 5,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "XOM",
+   "entry_date": "2024-04-18",
+   "exit_date": "2024-04-22",
+   "entry": 110.9763,
+   "exit": 111.9894,
+   "ret_pct": 0.711,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-05-22",
+   "exit_date": "2024-05-30",
+   "entry": 183.88,
+   "exit": 179.32,
+   "ret_pct": -2.675,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "NFLX",
+   "entry_date": "2024-06-05",
+   "exit_date": "2024-06-12",
+   "entry": 63.5865,
+   "exit": 65.006,
+   "ret_pct": 2.028,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2024-06-07",
+   "exit_date": "2024-06-12",
+   "entry": 189.1772,
+   "exit": 184.4342,
+   "ret_pct": -2.702,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2024-06-24",
+   "exit_date": "2024-06-27",
+   "entry": 210.2803,
+   "exit": 212.2613,
+   "ret_pct": 0.74,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "COST",
+   "entry_date": "2024-06-25",
+   "exit_date": "2024-07-02",
+   "entry": 841.0219,
+   "exit": 848.8046,
+   "ret_pct": 0.724,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "COST",
+   "entry_date": "2024-07-02",
+   "exit_date": "2024-07-03",
+   "entry": 846.3313,
+   "exit": 852.064,
+   "ret_pct": 0.476,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2024-07-15",
+   "exit_date": "2024-07-16",
+   "entry": 199.2843,
+   "exit": 205.0064,
+   "ret_pct": 2.666,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2024-07-15",
+   "exit_date": "2024-07-17",
+   "entry": 185.864,
+   "exit": 180.897,
+   "ret_pct": -2.867,
+   "bars": 2,
+   "reason": "stop"
+  },
+  {
+   "ticker": "MSFT",
+   "entry_date": "2024-07-15",
+   "exit_date": "2024-07-17",
+   "entry": 449.7482,
+   "exit": 435.742,
+   "ret_pct": -3.308,
+   "bars": 2,
+   "reason": "stop"
+  },
+  {
+   "ticker": "COST",
+   "entry_date": "2024-07-15",
+   "exit_date": "2024-07-18",
+   "entry": 840.3991,
+   "exit": 817.9811,
+   "ret_pct": -2.862,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "LLY",
+   "entry_date": "2024-08-30",
+   "exit_date": "2024-09-05",
+   "entry": 946.5962,
+   "exit": 906.7849,
+   "ret_pct": -4.397,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "META",
+   "entry_date": "2024-08-29",
+   "exit_date": "2024-09-06",
+   "entry": 518.1329,
+   "exit": 496.285,
+   "ret_pct": -4.408,
+   "bars": 5,
+   "reason": "stop"
+  },
+  {
+   "ticker": "HD",
+   "entry_date": "2024-09-09",
+   "exit_date": "2024-09-10",
+   "entry": 350.0541,
+   "exit": 354.9006,
+   "ret_pct": 1.182,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "ADBE",
+   "entry_date": "2024-09-09",
+   "exit_date": "2024-09-11",
+   "entry": 573.8833,
+   "exit": 580.38,
+   "ret_pct": 0.93,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "UNH",
+   "entry_date": "2024-09-13",
+   "exit_date": "2024-09-20",
+   "entry": 565.0139,
+   "exit": 548.1301,
+   "ret_pct": -3.182,
+   "bars": 5,
+   "reason": "stop"
+  },
+  {
+   "ticker": "UNH",
+   "entry_date": "2024-09-23",
+   "exit_date": "2024-09-27",
+   "entry": 555.8118,
+   "exit": 558.1439,
+   "ret_pct": 0.219,
+   "bars": 4,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "UNH",
+   "entry_date": "2024-10-09",
+   "exit_date": "2024-10-10",
+   "entry": 565.7692,
+   "exit": 573.3481,
+   "ret_pct": 1.137,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "META",
+   "entry_date": "2024-10-17",
+   "exit_date": "2024-10-23",
+   "entry": 579.9931,
+   "exit": 561.7782,
+   "ret_pct": -3.334,
+   "bars": 4,
+   "reason": "stop"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2024-10-24",
+   "exit_date": "2024-10-28",
+   "entry": 284.9399,
+   "exit": 290.056,
+   "ret_pct": 1.592,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "HD",
+   "entry_date": "2024-10-23",
+   "exit_date": "2024-10-29",
+   "entry": 385.9849,
+   "exit": 375.6876,
+   "ret_pct": -2.862,
+   "bars": 4,
+   "reason": "stop"
+  },
+  {
+   "ticker": "V",
+   "entry_date": "2024-10-25",
+   "exit_date": "2024-10-30",
+   "entry": 280.3017,
+   "exit": 286.3815,
+   "ret_pct": 1.965,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AVGO",
+   "entry_date": "2024-10-25",
+   "exit_date": "2024-11-01",
+   "entry": 171.8168,
+   "exit": 166.3471,
+   "ret_pct": -3.377,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2024-10-25",
+   "exit_date": "2024-11-01",
+   "entry": 229.3317,
+   "exit": 219.3259,
+   "ret_pct": -4.554,
+   "bars": 5,
+   "reason": "stop"
+  },
+  {
+   "ticker": "TSLA",
+   "entry_date": "2024-11-05",
+   "exit_date": "2024-11-06",
+   "entry": 249.1489,
+   "exit": 288.53,
+   "ret_pct": 15.575,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-11-19",
+   "exit_date": "2024-11-21",
+   "entry": 204.8747,
+   "exit": 197.0831,
+   "ret_pct": -3.995,
+   "bars": 2,
+   "reason": "stop"
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2024-11-19",
+   "exit_date": "2024-11-26",
+   "entry": 141.4705,
+   "exit": 136.7064,
+   "ret_pct": -3.561,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-11-25",
+   "exit_date": "2024-11-26",
+   "entry": 199.4593,
+   "exit": 207.86,
+   "ret_pct": 4.004,
+   "bars": 1,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "JPM",
+   "entry_date": "2024-12-05",
+   "exit_date": "2024-12-12",
+   "entry": 237.1368,
+   "exit": 233.2115,
+   "ret_pct": -1.852,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "HD",
+   "entry_date": "2024-12-11",
+   "exit_date": "2024-12-12",
+   "entry": 411.4748,
+   "exit": 400.1953,
+   "ret_pct": -2.936,
+   "bars": 1,
+   "reason": "stop"
+  },
+  {
+   "ticker": "V",
+   "entry_date": "2024-12-06",
+   "exit_date": "2024-12-13",
+   "entry": 307.9303,
+   "exit": 311.2319,
+   "ret_pct": 0.87,
+   "bars": 5,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "NVDA",
+   "entry_date": "2024-12-10",
+   "exit_date": "2024-12-13",
+   "entry": 139.881,
+   "exit": 132.7625,
+   "ret_pct": -5.279,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2024-12-20",
+   "exit_date": "2024-12-30",
+   "entry": 339.9135,
+   "exit": 331.8737,
+   "ret_pct": -2.56,
+   "bars": 5,
+   "reason": "time"
+  },
+  {
+   "ticker": "COST",
+   "entry_date": "2024-12-24",
+   "exit_date": "2024-12-30",
+   "entry": 946.0801,
+   "exit": 919.4889,
+   "ret_pct": -3.005,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2024-12-31",
+   "exit_date": "2025-01-06",
+   "entry": 223.223,
+   "exit": 227.61,
+   "ret_pct": 1.762,
+   "bars": 3,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "CRM",
+   "entry_date": "2025-01-02",
+   "exit_date": "2025-01-07",
+   "entry": 333.6007,
+   "exit": 320.4484,
+   "ret_pct": -4.134,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "V",
+   "entry_date": "2024-12-31",
+   "exit_date": "2025-01-08",
+   "entry": 313.8891,
+   "exit": 306.8718,
+   "ret_pct": -2.431,
+   "bars": 5,
+   "reason": "stop"
+  },
+  {
+   "ticker": "AAPL",
+   "entry_date": "2025-01-06",
+   "exit_date": "2025-01-10",
+   "entry": 242.8724,
+   "exit": 236.4923,
+   "ret_pct": -2.821,
+   "bars": 3,
+   "reason": "stop"
+  },
+  {
+   "ticker": "AMZN",
+   "entry_date": "2025-01-14",
+   "exit_date": "2025-01-21",
+   "entry": 220.44,
+   "exit": 230.71,
+   "ret_pct": 4.45,
+   "bars": 4,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2025-01-14",
+   "exit_date": "2025-01-21",
+   "entry": 190.3768,
+   "exit": 197.0209,
+   "ret_pct": 3.283,
+   "bars": 4,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "NFLX",
+   "entry_date": "2025-02-26",
+   "exit_date": "2025-03-04",
+   "entry": 99.5394,
+   "exit": 95.3773,
+   "ret_pct": -4.373,
+   "bars": 4,
+   "reason": "stop"
+  },
+  {
+   "ticker": "COST",
+   "entry_date": "2025-02-28",
+   "exit_date": "2025-03-07",
+   "entry": 1034.7355,
+   "exit": 986.723,
+   "ret_pct": -4.831,
+   "bars": 5,
+   "reason": "stop"
+  },
+  {
+   "ticker": "NFLX",
+   "entry_date": "2025-05-13",
+   "exit_date": "2025-05-15",
+   "entry": 113.113,
+   "exit": 117.798,
+   "ret_pct": 3.934,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "AMD",
+   "entry_date": "2025-07-08",
+   "exit_date": "2025-07-10",
+   "entry": 137.5774,
+   "exit": 144.16,
+   "ret_pct": 4.575,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "GOOGL",
+   "entry_date": "2025-07-09",
+   "exit_date": "2025-07-11",
+   "entry": 177.6212,
+   "exit": 179.6774,
+   "ret_pct": 0.956,
+   "bars": 2,
+   "reason": "rsi_strength"
+  },
+  {
+   "ticker": "NFLX",
+   "entry_date": "2025-07-14",
+   "exit_date": "2025-07-18",
+   "entry": 126.2261,
+   "exit": 121.9198,
+   "ret_pct": -3.605,
+   "bars": 4,
+   "reason": "stop"
+  }
+ ]
+}
