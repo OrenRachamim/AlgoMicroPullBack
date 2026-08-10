@@ -75,5 +75,274 @@
     }
    }
   ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "e0:ref_rsi85_t6",
+    "n_trades": 502,
+    "total_return_pct": 28.61,
+    "cagr_pct": 3.38,
+    "max_drawdown_pct": -18.51,
+    "sharpe": 0.35,
+    "win_rate_pct": 58.4,
+    "avg_trade_pct": 0.293,
+    "profit_factor": 1.16,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "rsi_strength": 239,
+     "time": 232,
+     "earnings": 31
+    }
+   },
+   {
+    "variant": "e1:trail_atr2",
+    "n_trades": 499,
+    "total_return_pct": -1.53,
+    "cagr_pct": -0.2,
+    "max_drawdown_pct": -24.46,
+    "sharpe": 0.04,
+    "win_rate_pct": 44.1,
+    "avg_trade_pct": 0.021,
+    "profit_factor": 0.99,
+    "avg_hold_days": 6.1,
+    "exit_reasons": {
+     "trail_stop": 328,
+     "time": 131,
+     "earnings": 40
+    }
+   },
+   {
+    "variant": "e2:trail_atr3",
+    "n_trades": 422,
+    "total_return_pct": 5.18,
+    "cagr_pct": 0.67,
+    "max_drawdown_pct": -22.33,
+    "sharpe": 0.12,
+    "win_rate_pct": 51.2,
+    "avg_trade_pct": 0.127,
+    "profit_factor": 1.02,
+    "avg_hold_days": 8.2,
+    "exit_reasons": {
+     "time": 242,
+     "trail_stop": 140,
+     "earnings": 40
+    }
+   },
+   {
+    "variant": "e3:trail_pct5",
+    "n_trades": 472,
+    "total_return_pct": 2.26,
+    "cagr_pct": 0.3,
+    "max_drawdown_pct": -26.14,
+    "sharpe": 0.08,
+    "win_rate_pct": 46.8,
+    "avg_trade_pct": 0.069,
+    "profit_factor": 1.01,
+    "avg_hold_days": 6.9,
+    "exit_reasons": {
+     "trail_stop": 239,
+     "time": 192,
+     "earnings": 41
+    }
+   },
+   {
+    "variant": "e4:rsi85_trail_atr25",
+    "n_trades": 538,
+    "total_return_pct": -3.55,
+    "cagr_pct": -0.48,
+    "max_drawdown_pct": -24.4,
+    "sharpe": 0.01,
+    "win_rate_pct": 53.9,
+    "avg_trade_pct": 0.004,
+    "profit_factor": 0.98,
+    "avg_hold_days": 4.0,
+    "exit_reasons": {
+     "rsi_strength": 231,
+     "trail_stop": 146,
+     "time": 132,
+     "earnings": 29
+    }
+   },
+   {
+    "variant": "e5:rsi80_t6",
+    "n_trades": 517,
+    "total_return_pct": 37.9,
+    "cagr_pct": 4.34,
+    "max_drawdown_pct": -18.87,
+    "sharpe": 0.45,
+    "win_rate_pct": 61.3,
+    "avg_trade_pct": 0.349,
+    "profit_factor": 1.21,
+    "avg_hold_days": 4.2,
+    "exit_reasons": {
+     "rsi_strength": 304,
+     "time": 185,
+     "earnings": 28
+    }
+   },
+   {
+    "variant": "e6:rsi90_t6",
+    "n_trades": 494,
+    "total_return_pct": 23.15,
+    "cagr_pct": 2.79,
+    "max_drawdown_pct": -17.07,
+    "sharpe": 0.3,
+    "win_rate_pct": 55.5,
+    "avg_trade_pct": 0.251,
+    "profit_factor": 1.12,
+    "avg_hold_days": 5.1,
+    "exit_reasons": {
+     "time": 294,
+     "rsi_strength": 164,
+     "earnings": 36
+    }
+   },
+   {
+    "variant": "e7:rsi85_t5",
+    "n_trades": 520,
+    "total_return_pct": 49.14,
+    "cagr_pct": 5.43,
+    "max_drawdown_pct": -19.92,
+    "sharpe": 0.55,
+    "win_rate_pct": 57.9,
+    "avg_trade_pct": 0.421,
+    "profit_factor": 1.29,
+    "avg_hold_days": 4.1,
+    "exit_reasons": {
+     "time": 275,
+     "rsi_strength": 218,
+     "earnings": 27
+    }
+   },
+   {
+    "variant": "e8:rsi85_t7",
+    "n_trades": 487,
+    "total_return_pct": 32.71,
+    "cagr_pct": 3.81,
+    "max_drawdown_pct": -19.02,
+    "sharpe": 0.39,
+    "win_rate_pct": 59.3,
+    "avg_trade_pct": 0.337,
+    "profit_factor": 1.17,
+    "avg_hold_days": 5.1,
+    "exit_reasons": {
+     "rsi_strength": 256,
+     "time": 200,
+     "earnings": 31
+    }
+   },
+   {
+    "variant": "e9:below_ema10",
+    "n_trades": 802,
+    "total_return_pct": -29.06,
+    "cagr_pct": -4.44,
+    "max_drawdown_pct": -31.01,
+    "sharpe": -0.39,
+    "win_rate_pct": 38.9,
+    "avg_trade_pct": -0.206,
+    "profit_factor": 0.81,
+    "avg_hold_days": 2.3,
+    "exit_reasons": {
+     "below_ema10": 730,
+     "time": 47,
+     "earnings": 25
+    }
+   },
+   {
+    "variant": "e10:rsi85_breakeven1atr",
+    "n_trades": 521,
+    "total_return_pct": 27.01,
+    "cagr_pct": 3.21,
+    "max_drawdown_pct": -18.76,
+    "sharpe": 0.35,
+    "win_rate_pct": 48.9,
+    "avg_trade_pct": 0.267,
+    "profit_factor": 1.16,
+    "avg_hold_days": 4.3,
+    "exit_reasons": {
+     "rsi_strength": 227,
+     "time": 191,
+     "trail_stop": 77,
+     "earnings": 26
+    }
+   },
+   {
+    "variant": "e11:target2atr_trail25",
+    "n_trades": 505,
+    "total_return_pct": 5.82,
+    "cagr_pct": 0.75,
+    "max_drawdown_pct": -24.35,
+    "sharpe": 0.12,
+    "win_rate_pct": 51.7,
+    "avg_trade_pct": 0.107,
+    "profit_factor": 1.04,
+    "avg_hold_days": 5.2,
+    "exit_reasons": {
+     "trail_stop": 161,
+     "target": 158,
+     "time": 152,
+     "earnings": 34
+    }
+   },
+   {
+    "variant": "e12:rsi85_trailpct7_t8",
+    "n_trades": 497,
+    "total_return_pct": 19.66,
+    "cagr_pct": 2.4,
+    "max_drawdown_pct": -20.41,
+    "sharpe": 0.28,
+    "win_rate_pct": 57.9,
+    "avg_trade_pct": 0.225,
+    "profit_factor": 1.11,
+    "avg_hold_days": 4.9,
+    "exit_reasons": {
+     "rsi_strength": 265,
+     "time": 104,
+     "trail_stop": 97,
+     "earnings": 31
+    }
+   },
+   {
+    "variant": "e13:rsi3_80_t6",
+    "n_trades": 492,
+    "total_return_pct": 26.15,
+    "cagr_pct": 3.12,
+    "max_drawdown_pct": -16.26,
+    "sharpe": 0.32,
+    "win_rate_pct": 55.5,
+    "avg_trade_pct": 0.278,
+    "profit_factor": 1.14,
+    "avg_hold_days": 5.1,
+    "exit_reasons": {
+     "time": 295,
+     "rsi_strength": 161,
+     "earnings": 36
+    }
+   },
+   {
+    "variant": "e14:target5pct_t6",
+    "n_trades": 506,
+    "total_return_pct": 15.61,
+    "cagr_pct": 1.94,
+    "max_drawdown_pct": -19.31,
+    "sharpe": 0.23,
+    "win_rate_pct": 58.5,
+    "avg_trade_pct": 0.18,
+    "profit_factor": 1.09,
+    "avg_hold_days": 4.5,
+    "exit_reasons": {
+     "time": 222,
+     "rsi_strength": 168,
+     "target": 89,
+     "earnings": 27
+    }
+   }
+  ]
  }
 ]
