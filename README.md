@@ -20,8 +20,10 @@
 **כניסה:** למחרת בפתיחה, רק כש-SPY מעל SMA200. עד 5 פוזיציות שוות-משקל,
 מועמדים מדורגים לפי מומנטום.
 
-**יציאה:** ‏RSI2 > 85 בסגירה (מימוש חוזק) או אחרי 6 ימי מסחר. ללא סטופ מחיר
-(נבדק — כל סוגי הסטופים הרעו את התוצאות במערכות mean-reversion קצרות).
+**יציאה** (אחרי מחקר יציאות ייעודי — ‏27 וריאנטים ב-4 סבבים):
+‏**RSI2 > 65 בסגירה או אחרי 5 ימי מסחר**. ללא סטופ מחיר וללא trailing —
+נבדקו trailing ATR/אחוזים, breakeven, יציאת EMA10 ויעדי רווח; כולם הרעו
+את התוצאות במערכת mean-reversion קצרה (נועלים את תחתית ה-V).
 מנגנוני יציאה נוספים ממומשים וניתנים להפעלה דרך `StrategyParams`:
 ‏trailing stop ‏(ATR/אחוזים), ‏breakeven stop, יציאה מתחת ל-EMA10, יעדי רווח.
 
@@ -32,13 +34,15 @@
 של SEC, ‏API של NASDAQ, או נתוני הברוקר): לא נכנסים אם יש דוח בין רגע
 הכניסה ליציאה המתוכננת, ויוצאים לפני פרסום קרוב.
 
-## תוצאות (יוניברס ~118 מניות, עמלות 20bps לעסקה)
+## תוצאות (יוניברס מלא ‏S&P100+נאסד"ק-100, ‏173 מניות, עמלות 20bps לעסקה)
 
 | תקופה | תשואה | CAGR | Sharpe | Max DD | Win % | PF |
 |---|---|---|---|---|---|---|
-| 2018–2021 (out-of-sample) | +22.4% | 5.2% | 0.54 | -18.6% | 58.4% | 1.30 |
-| 2022–2025 (פיתוח) | +19.8% | 5.2% | 0.68 | -13.2% | 61.6% | 1.36 |
-| 2018–2025 מלא | +37.7% | 4.3% | 0.50 | -18.6% | 58.9% | 1.26 |
+| 2018–2021 | +24.1% | 5.6% | 0.54 | -18.4% | 64.8% | 1.29 |
+| 2022–2025 | +34.3% | 8.6% | 1.11 | -6.8% | 66.4% | 1.70 |
+| 2018–2025 מלא | +57.8% | 6.2% | 0.66 | -18.4% | 64.8% | 1.40 |
+
+‏576 עסקאות בתקופה המלאה, החזקה ממוצעת 2.9 ימים; ‏21 יציאות כפויות לפני דוחות.
 
 ראו `results/ITERATIONS.md` ל-11 האיטרציות המלאות ולהסתייגויות
 (survivorship bias, גאפים של דוחות, השוואה ל-benchmark).
@@ -51,13 +55,17 @@ pip install -r requirements.txt
 # בדיקות
 python -m pytest tests/ -q
 
-# backtest של האסטרטגיה הסופית
-python run_backtest.py --universe extended --start 2018-01-01 --end 2025-08-01 \
+# backtest של האסטרטגיה הסופית (יוניברס מלא כולל נאסד"ק)
+python run_backtest.py --universe full --start 2018-01-01 --end 2025-08-01 \
     --variant final --max-positions 5 --regime spy200 --rank momentum --save my_run
 
-# השוואת וריאנטים
-python run_sweep.py --universe extended --start 2022-01-01 --end 2025-08-01 \
-    --variants v26,v29,final --regime spy200 --rank momentum --max-positions 5
+# השוואת וריאנטים (למשל וריאנטי היציאה)
+python run_sweep.py --universe full --start 2022-01-01 --end 2025-08-01 \
+    --variants e0,e19,e22 --regime spy200 --rank momentum --max-positions 5
+
+# כיבוי פילטר הדוחות או שינוי חלון הסיכון
+python run_backtest.py ... --no-earnings-filter
+python run_backtest.py ... --earn-before 1 --earn-after 1
 ```
 
 הנתונים יורדים מ-Yahoo Finance (ללא API key) ונשמרים ב-`data_cache/`
@@ -68,14 +76,15 @@ python run_sweep.py --universe extended --start 2022-01-01 --end 2025-08-01 \
 ```
 micro_pullback/
   data.py        # הורדת נתונים יומיים + cache
+  earnings.py    # תאריכי דוחות מ-SEC EDGAR (8-K Item 2.02) + חלונות סיכון
   indicators.py  # RSI, MACD, SMA/EMA, ATR, תמיכה/התנגדות, מומנטום
   strategy.py    # הגדרת ה-setup, טריגר כניסה, חוקי יציאה (StrategyParams)
   backtest.py    # מנוע backtest תיקי יומי (ללא lookahead) + מדדים
-  variants.py    # כל וריאנטי האיטרציות v1..v31 + final
-  universe.py    # רשימות מניות (קטן/מורחב)
+  variants.py    # וריאנטי כניסה v1..v31, וריאנטי יציאה e0..e27, final
+  universe.py    # רשימות מניות (קטן/מורחב/נאסד"ק/מלא)
 run_backtest.py  # הרצת וריאנט יחיד + שמירת עסקאות ועקומת הון
 run_sweep.py     # השוואת וריאנטים בטבלה
-tests/           # 21 בדיקות יחידה (אינדיקטורים, אסטרטגיה, מנוע)
+tests/           # 29 בדיקות יחידה (אינדיקטורים, אסטרטגיה, מנוע, דוחות, יציאות)
 results/         # תוצאות ויומן איטרציות
 ```
 

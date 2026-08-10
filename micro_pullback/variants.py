@@ -226,21 +226,24 @@ VARIANTS: dict[str, StrategyParams] = {
                           exit_rsi_col="rsi2", exit_rsi_min=85.0, max_hold_days=6),
 }
 
-# The winning configuration after 11 iterations (see results/ITERATIONS.md).
+# The winning configuration after round-1 entry research (11 iterations) and
+# round-2 exit research (4 sweep rounds); see results/ITERATIONS.md.
 # Run with: --regime spy200 --rank momentum --max-positions 5
+# (earnings filter on by default; exits updated in round 2: RSI2>65, 5-day hold)
 VARIANTS["final"] = StrategyParams(name="final_leaders_20", entry_mode="open",
                                    rsi_entry_col="rsi2", rsi_entry_max=10.0,
                                    min_down_days=1, min_ret63=0.20,
                                    stop_atr_mult=0.0, max_atr_pct=0.04,
                                    max_pullback_pct=0.07,
-                                   exit_rsi_col="rsi2", exit_rsi_min=85.0,
-                                   max_hold_days=6)
+                                   exit_rsi_col="rsi2", exit_rsi_min=65.0,
+                                   max_hold_days=5)
 
 # ---------------------------------------------------------------------------
-# Exit-strategy research (round 2): entry rules frozen to `final`, exits vary.
-# e0 is the reference. All e-variants run with the earnings filter active.
+# Exit-strategy research (round 2): entry rules frozen to the round-1 final,
+# exits vary. e0 is the round-1 reference exit (RSI2>85, 6-day hold).
+# All e-variants run with the earnings filter active.
 # ---------------------------------------------------------------------------
-_E = VARIANTS["final"]
+_E = replace(VARIANTS["final"], exit_rsi_min=85.0, max_hold_days=6)
 
 EXIT_VARIANTS: dict[str, StrategyParams] = {
     # reference: strength exit RSI2>85 or 6-day time stop

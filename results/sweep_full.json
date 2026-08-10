@@ -643,5 +643,125 @@
     }
    }
   ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2021-12-31",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "e0:ref_rsi85_t6",
+    "n_trades": 296,
+    "total_return_pct": 15.79,
+    "cagr_pct": 3.74,
+    "max_drawdown_pct": -18.51,
+    "sharpe": 0.35,
+    "win_rate_pct": 58.1,
+    "avg_trade_pct": 0.296,
+    "profit_factor": 1.15,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "time": 142,
+     "rsi_strength": 138,
+     "earnings": 16
+    }
+   },
+   {
+    "variant": "e19:rsi75_t5",
+    "n_trades": 320,
+    "total_return_pct": 26.68,
+    "cagr_pct": 6.1,
+    "max_drawdown_pct": -20.76,
+    "sharpe": 0.58,
+    "win_rate_pct": 64.7,
+    "avg_trade_pct": 0.405,
+    "profit_factor": 1.32,
+    "avg_hold_days": 3.4,
+    "exit_reasons": {
+     "rsi_strength": 207,
+     "time": 100,
+     "earnings": 13
+    }
+   },
+   {
+    "variant": "e22:rsi65_t5",
+    "n_trades": 341,
+    "total_return_pct": 24.07,
+    "cagr_pct": 5.55,
+    "max_drawdown_pct": -18.43,
+    "sharpe": 0.54,
+    "win_rate_pct": 64.8,
+    "avg_trade_pct": 0.345,
+    "profit_factor": 1.29,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 259,
+     "time": 71,
+     "earnings": 11
+    }
+   }
+  ]
+ },
+ {
+  "start": "2022-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "e0:ref_rsi85_t6",
+    "n_trades": 201,
+    "total_return_pct": 17.53,
+    "cagr_pct": 4.64,
+    "max_drawdown_pct": -14.37,
+    "sharpe": 0.58,
+    "win_rate_pct": 60.2,
+    "avg_trade_pct": 0.434,
+    "profit_factor": 1.28,
+    "avg_hold_days": 4.6,
+    "exit_reasons": {
+     "rsi_strength": 101,
+     "time": 85,
+     "earnings": 15
+    }
+   },
+   {
+    "variant": "e19:rsi75_t5",
+    "n_trades": 219,
+    "total_return_pct": 26.73,
+    "cagr_pct": 6.88,
+    "max_drawdown_pct": -10.87,
+    "sharpe": 0.83,
+    "win_rate_pct": 62.6,
+    "avg_trade_pct": 0.567,
+    "profit_factor": 1.46,
+    "avg_hold_days": 3.4,
+    "exit_reasons": {
+     "rsi_strength": 137,
+     "time": 70,
+     "earnings": 12
+    }
+   },
+   {
+    "variant": "e22:rsi65_t5",
+    "n_trades": 229,
+    "total_return_pct": 34.28,
+    "cagr_pct": 8.63,
+    "max_drawdown_pct": -6.82,
+    "sharpe": 1.11,
+    "win_rate_pct": 66.4,
+    "avg_trade_pct": 0.665,
+    "profit_factor": 1.7,
+    "avg_hold_days": 2.8,
+    "exit_reasons": {
+     "rsi_strength": 175,
+     "time": 44,
+     "earnings": 10
+    }
+   }
+  ]
  }
 ]
