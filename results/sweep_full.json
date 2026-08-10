@@ -472,5 +472,99 @@
     }
    }
   ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "e19:rsi75_t5",
+    "n_trades": 546,
+    "total_return_pct": 53.59,
+    "cagr_pct": 5.84,
+    "max_drawdown_pct": -20.76,
+    "sharpe": 0.61,
+    "win_rate_pct": 63.2,
+    "avg_trade_pct": 0.424,
+    "profit_factor": 1.33,
+    "avg_hold_days": 3.4,
+    "exit_reasons": {
+     "rsi_strength": 346,
+     "time": 175,
+     "earnings": 25
+    }
+   },
+   {
+    "variant": "e21:rsi70_t5",
+    "n_trades": 561,
+    "total_return_pct": 50.63,
+    "cagr_pct": 5.57,
+    "max_drawdown_pct": -19.51,
+    "sharpe": 0.59,
+    "win_rate_pct": 63.8,
+    "avg_trade_pct": 0.393,
+    "profit_factor": 1.33,
+    "avg_hold_days": 3.1,
+    "exit_reasons": {
+     "rsi_strength": 389,
+     "time": 149,
+     "earnings": 23
+    }
+   },
+   {
+    "variant": "e22:rsi65_t5",
+    "n_trades": 576,
+    "total_return_pct": 57.78,
+    "cagr_pct": 6.22,
+    "max_drawdown_pct": -18.43,
+    "sharpe": 0.66,
+    "win_rate_pct": 64.8,
+    "avg_trade_pct": 0.422,
+    "profit_factor": 1.4,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 437,
+     "time": 118,
+     "earnings": 21
+    }
+   },
+   {
+    "variant": "e23:rsi70_t4",
+    "n_trades": 579,
+    "total_return_pct": 44.25,
+    "cagr_pct": 4.97,
+    "max_drawdown_pct": -16.43,
+    "sharpe": 0.55,
+    "win_rate_pct": 61.3,
+    "avg_trade_pct": 0.341,
+    "profit_factor": 1.28,
+    "avg_hold_days": 2.8,
+    "exit_reasons": {
+     "rsi_strength": 357,
+     "time": 202,
+     "earnings": 20
+    }
+   },
+   {
+    "variant": "e24:rsi75_t4",
+    "n_trades": 569,
+    "total_return_pct": 43.01,
+    "cagr_pct": 4.85,
+    "max_drawdown_pct": -17.12,
+    "sharpe": 0.53,
+    "win_rate_pct": 59.8,
+    "avg_trade_pct": 0.34,
+    "profit_factor": 1.27,
+    "avg_hold_days": 3.0,
+    "exit_reasons": {
+     "rsi_strength": 309,
+     "time": 238,
+     "earnings": 22
+    }
+   }
+  ]
  }
 ]

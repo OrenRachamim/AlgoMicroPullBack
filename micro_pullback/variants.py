@@ -284,6 +284,11 @@ EXIT_VARIANTS: dict[str, StrategyParams] = {
     "e22": replace(_E, name="rsi65_t5", exit_rsi_min=65.0, max_hold_days=5),
     "e23": replace(_E, name="rsi70_t4", exit_rsi_min=70.0, max_hold_days=4),
     "e24": replace(_E, name="rsi75_t4", exit_rsi_min=75.0, max_hold_days=4),
+
+    # --- exit round 4: probe the lower bound of the RSI exit threshold ---
+    "e25": replace(_E, name="rsi60_t5", exit_rsi_min=60.0, max_hold_days=5),
+    "e26": replace(_E, name="rsi55_t5", exit_rsi_min=55.0, max_hold_days=5),
+    "e27": replace(_E, name="rsi65_t6", exit_rsi_min=65.0, max_hold_days=6),
 }
 
 VARIANTS.update(EXIT_VARIANTS)
