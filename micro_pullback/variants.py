@@ -4,6 +4,8 @@ Each iteration of the research loop adds/edits a variant here; results are
 logged under results/ and summarized in results/ITERATIONS.md.
 """
 
+from dataclasses import replace
+
 from .strategy import StrategyParams
 
 VARIANTS: dict[str, StrategyParams] = {
@@ -233,3 +235,41 @@ VARIANTS["final"] = StrategyParams(name="final_leaders_20", entry_mode="open",
                                    max_pullback_pct=0.07,
                                    exit_rsi_col="rsi2", exit_rsi_min=85.0,
                                    max_hold_days=6)
+
+# ---------------------------------------------------------------------------
+# Exit-strategy research (round 2): entry rules frozen to `final`, exits vary.
+# e0 is the reference. All e-variants run with the earnings filter active.
+# ---------------------------------------------------------------------------
+_E = VARIANTS["final"]
+
+EXIT_VARIANTS: dict[str, StrategyParams] = {
+    # reference: strength exit RSI2>85 or 6-day time stop
+    "e0": replace(_E, name="ref_rsi85_t6"),
+    # pure trailing stops (no RSI exit), longer leash
+    "e1": replace(_E, name="trail_atr2", exit_rsi_min=0.0, trail_atr_mult=2.0, max_hold_days=10),
+    "e2": replace(_E, name="trail_atr3", exit_rsi_min=0.0, trail_atr_mult=3.0, max_hold_days=10),
+    "e3": replace(_E, name="trail_pct5", exit_rsi_min=0.0, trail_pct=0.05, max_hold_days=10),
+    # hybrid: strength exit + trailing safety net
+    "e4": replace(_E, name="rsi85_trail_atr25", trail_atr_mult=2.5),
+    # RSI threshold sweep
+    "e5": replace(_E, name="rsi80_t6", exit_rsi_min=80.0),
+    "e6": replace(_E, name="rsi90_t6", exit_rsi_min=90.0),
+    # time-stop sweep
+    "e7": replace(_E, name="rsi85_t5", max_hold_days=5),
+    "e8": replace(_E, name="rsi85_t7", max_hold_days=7),
+    # moving-average exit
+    "e9": replace(_E, name="below_ema10", exit_rsi_min=0.0, exit_below_ema10=True, max_hold_days=10),
+    # breakeven protection
+    "e10": replace(_E, name="rsi85_breakeven1atr", breakeven_atr=1.0),
+    # profit target + trail combo
+    "e11": replace(_E, name="target2atr_trail25", exit_rsi_min=0.0, target_atr_mult=2.0,
+                   trail_atr_mult=2.5, max_hold_days=8),
+    # strength exit + % trail
+    "e12": replace(_E, name="rsi85_trailpct7_t8", trail_pct=0.07, max_hold_days=8),
+    # slower RSI for the strength exit
+    "e13": replace(_E, name="rsi3_80_t6", exit_rsi_col="rsi3", exit_rsi_min=80.0),
+    # fixed profit target
+    "e14": replace(_E, name="target5pct_t6", target_pct=0.05),
+}
+
+VARIANTS.update(EXIT_VARIANTS)

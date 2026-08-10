@@ -11,6 +11,21 @@ SMALL_UNIVERSE = [
     "XOM", "HD", "MRK", "ADBE",
 ]
 
+# Nasdaq-100 constituents (2025 membership; static list — survivorship bias
+# applies). Foreign private issuers (6-K filers) have no 8-K earnings history,
+# so the earnings filter is inactive for them.
+NASDAQ_UNIVERSE = sorted(set(SMALL_UNIVERSE + [
+    "GOOG", "PEP", "CSCO", "TMUS", "INTC", "INTU", "QCOM", "TXN", "AMAT",
+    "CMCSA", "HON", "AMGN", "ISRG", "BKNG", "VRTX", "ADP", "SBUX", "GILD",
+    "MU", "ADI", "PANW", "REGN", "LRCX", "MDLZ", "KLAC", "SNPS", "CDNS",
+    "MELI", "CRWD", "MAR", "PYPL", "ORLY", "CSX", "ABNB", "MRVL", "NXPI",
+    "ROP", "FTNT", "WDAY", "ADSK", "PCAR", "DXCM", "CHTR", "MNST", "KDP",
+    "AEP", "ROST", "PAYX", "CPRT", "ODFL", "FAST", "KHC", "GEHC", "DDOG",
+    "IDXX", "EA", "VRSK", "EXC", "CTSH", "XEL", "CSGP", "BKR", "ON", "TTWO",
+    "ZS", "FANG", "DLTR", "WBD", "MDB", "CDW", "BIIB", "SMCI", "CEG", "TEAM",
+    "APP", "PLTR", "AXON", "LULU", "MCHP", "TER", "SWKS", "EBAY", "ANSS",
+]))
+
 # Extended universe: ~S&P 100 + liquid growth names.
 EXTENDED_UNIVERSE = sorted(set(SMALL_UNIVERSE + [
     "ABBV", "ABT", "ACN", "AIG", "AMAT", "AMGN", "AMT", "AXP", "BA", "BAC",
@@ -24,3 +39,6 @@ EXTENDED_UNIVERSE = sorted(set(SMALL_UNIVERSE + [
     "TMUS", "TXN", "UBER", "UNP", "UPS", "USB", "VRTX", "VZ", "WFC", "WMT",
     "ANET", "APP", "CRWD", "DDOG", "DELL", "KLAC", "MRVL", "NET", "SMCI", "SNOW",
 ]))
+
+# Full universe: S&P 100 extension + Nasdaq-100 (~176 liquid US names).
+FULL_UNIVERSE = sorted(set(EXTENDED_UNIVERSE) | set(NASDAQ_UNIVERSE))

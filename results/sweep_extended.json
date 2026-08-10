@@ -688,5 +688,31 @@
     }
    }
   ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "e0:ref_rsi85_t6",
+    "n_trades": 354,
+    "total_return_pct": 23.1,
+    "cagr_pct": 2.79,
+    "max_drawdown_pct": -17.82,
+    "sharpe": 0.35,
+    "win_rate_pct": 58.5,
+    "avg_trade_pct": 0.337,
+    "profit_factor": 1.17,
+    "avg_hold_days": 4.6,
+    "exit_reasons": {
+     "rsi_strength": 172,
+     "time": 158,
+     "earnings": 24
+    }
+   }
+  ]
  }
 ]

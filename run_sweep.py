@@ -14,7 +14,7 @@ import os
 from micro_pullback.backtest import BacktestConfig, run_backtest
 from micro_pullback.data import load_universe
 from micro_pullback.indicators import add_indicators
-from micro_pullback.universe import EXTENDED_UNIVERSE, SMALL_UNIVERSE
+from micro_pullback.universe import EXTENDED_UNIVERSE, FULL_UNIVERSE, NASDAQ_UNIVERSE, SMALL_UNIVERSE
 from micro_pullback.variants import VARIANTS
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
@@ -25,7 +25,7 @@ COLS = ["variant", "n_trades", "total_return_pct", "cagr_pct", "max_drawdown_pct
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--universe", choices=["small", "extended"], default="small")
+    ap.add_argument("--universe", choices=["small", "extended", "nasdaq", "full"], default="small")
     ap.add_argument("--start", default="2022-01-01")
     ap.add_argument("--end", default="2025-08-01")
     ap.add_argument("--variants", default=None, help="comma-separated subset, default all")
@@ -34,9 +34,16 @@ def main() -> None:
                     help="market regime filter: allow entries only when SPY > SMA-N "
                          "(spy200+50: above both SMA200 and SMA50)")
     ap.add_argument("--rank", choices=["rsi", "momentum"], default="rsi")
+    ap.add_argument("--no-earnings-filter", action="store_true",
+                    help="disable SEC-EDGAR earnings avoidance")
+    ap.add_argument("--earn-before", type=int, default=0,
+                    help="extra risk days before the earnings filing date")
+    ap.add_argument("--earn-after", type=int, default=0,
+                    help="extra risk days after the earnings filing date")
     args = ap.parse_args()
 
-    tickers = SMALL_UNIVERSE if args.universe == "small" else EXTENDED_UNIVERSE
+    tickers = {"small": SMALL_UNIVERSE, "extended": EXTENDED_UNIVERSE,
+               "nasdaq": NASDAQ_UNIVERSE, "full": FULL_UNIVERSE}[args.universe]
     fetch_start = (dt.date.fromisoformat(args.start) - dt.timedelta(days=400)).isoformat()
     print(f"Loading {len(tickers)} tickers {fetch_start} -> {args.end} ...")
     raw = load_universe(tickers, fetch_start, args.end)
@@ -54,13 +61,23 @@ def main() -> None:
             win = 200 if args.regime == "spy200" else 100
             regime = spy["close"] > sma(win)
 
+    earnings = None
+    if not args.no_earnings_filter:
+        from micro_pullback.earnings import load_earnings_risk
+        import pandas as pd
+        calendar = pd.DatetimeIndex(sorted(set().union(*[df.index for df in data.values()])))
+        print("Loading earnings dates from SEC EDGAR ...")
+        earnings = load_earnings_risk(list(data.keys()), calendar,
+                                      buffer_before=args.earn_before,
+                                      buffer_after=args.earn_after)
+
     names = args.variants.split(",") if args.variants else sorted(VARIANTS.keys())
     rows = []
     for name in names:
         params = VARIANTS[name]
         cfg = BacktestConfig(max_positions=args.max_positions, rank_by=args.rank)
         _, _, stats = run_backtest(data, params, cfg, start=args.start, end=args.end,
-                                   regime=regime)
+                                   regime=regime, earnings=earnings)
         row = {"variant": f"{name}:{params.name}"}
         row.update({k: stats.get(k) for k in COLS[1:]})
         row["exit_reasons"] = stats.get("exit_reasons", {})

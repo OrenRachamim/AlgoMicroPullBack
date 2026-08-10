@@ -16,7 +16,7 @@ from micro_pullback.backtest import BacktestConfig, run_backtest
 from micro_pullback.data import load_universe
 from micro_pullback.indicators import add_indicators
 from micro_pullback.strategy import StrategyParams
-from micro_pullback.universe import EXTENDED_UNIVERSE, SMALL_UNIVERSE
+from micro_pullback.universe import EXTENDED_UNIVERSE, FULL_UNIVERSE, NASDAQ_UNIVERSE, SMALL_UNIVERSE
 from micro_pullback.variants import VARIANTS
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
@@ -24,17 +24,24 @@ RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results"
 
 def main() -> None:
     ap = argparse.ArgumentParser(description="Micro-pullback backtest")
-    ap.add_argument("--universe", choices=["small", "extended"], default="small")
+    ap.add_argument("--universe", choices=["small", "extended", "nasdaq", "full"], default="small")
     ap.add_argument("--start", default="2022-01-01", help="backtest start (data warm-up added automatically)")
     ap.add_argument("--end", default="2025-12-31")
     ap.add_argument("--variant", default="v1", choices=sorted(VARIANTS.keys()))
     ap.add_argument("--max-positions", type=int, default=8)
     ap.add_argument("--regime", choices=["none", "spy200", "spy100", "spy200+50"], default="none")
     ap.add_argument("--rank", choices=["rsi", "momentum"], default="rsi")
+    ap.add_argument("--no-earnings-filter", action="store_true",
+                    help="disable SEC-EDGAR earnings avoidance")
+    ap.add_argument("--earn-before", type=int, default=0,
+                    help="extra risk days before the earnings filing date")
+    ap.add_argument("--earn-after", type=int, default=0,
+                    help="extra risk days after the earnings filing date")
     ap.add_argument("--save", default=None, help="save stats+trades JSON under results/<name>.json")
     args = ap.parse_args()
 
-    tickers = SMALL_UNIVERSE if args.universe == "small" else EXTENDED_UNIVERSE
+    tickers = {"small": SMALL_UNIVERSE, "extended": EXTENDED_UNIVERSE,
+               "nasdaq": NASDAQ_UNIVERSE, "full": FULL_UNIVERSE}[args.universe]
     # warm-up: fetch ~1 extra year of data before the backtest window for indicators
     import datetime as dt
     fetch_start = (dt.date.fromisoformat(args.start) - dt.timedelta(days=400)).isoformat()
@@ -59,8 +66,18 @@ def main() -> None:
             win = 200 if args.regime == "spy200" else 100
             regime = spy["close"] > sma(win)
 
+    earnings = None
+    if not args.no_earnings_filter:
+        from micro_pullback.earnings import load_earnings_risk
+        import pandas as pd
+        calendar = pd.DatetimeIndex(sorted(set().union(*[df.index for df in data.values()])))
+        print("Loading earnings dates from SEC EDGAR ...")
+        earnings = load_earnings_risk(list(data.keys()), calendar,
+                                      buffer_before=args.earn_before,
+                                      buffer_after=args.earn_after)
+
     trades, equity, stats = run_backtest(data, params, cfg, start=args.start, end=args.end,
-                                         regime=regime)
+                                         regime=regime, earnings=earnings)
 
     # SPY buy-and-hold benchmark over the same window
     if spy is not None and not equity.empty:

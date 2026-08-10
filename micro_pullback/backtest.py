@@ -49,9 +49,10 @@ class Trade:
 
 
 class _Pos:
-    __slots__ = ("ticker", "entry_date", "entry_price", "shares", "stop", "target", "bars_held")
+    __slots__ = ("ticker", "entry_date", "entry_price", "shares", "stop", "target",
+                 "bars_held", "peak_high", "peak_close", "entry_atr")
 
-    def __init__(self, ticker, entry_date, entry_price, shares, stop, target):
+    def __init__(self, ticker, entry_date, entry_price, shares, stop, target, entry_atr):
         self.ticker = ticker
         self.entry_date = entry_date
         self.entry_price = entry_price
@@ -59,17 +60,26 @@ class _Pos:
         self.stop = stop
         self.target = target
         self.bars_held = 0
+        self.peak_high = entry_price
+        self.peak_close = entry_price
+        self.entry_atr = entry_atr
 
 
 def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
                  config: BacktestConfig | None = None,
                  start: str | None = None, end: str | None = None,
-                 regime: pd.Series | None = None):
+                 regime: pd.Series | None = None,
+                 earnings: dict[str, set] | None = None):
     """Run the strategy over a {ticker: indicator-enriched DataFrame} universe.
 
     `regime`: optional boolean Series indexed by date (e.g. SPY > SMA200).
     New entries are blocked on days where the regime is False (evaluated on
     the previous bar's value — no lookahead). Exits are always allowed.
+
+    `earnings`: optional {ticker: set of earnings-risk trading days}. When
+    params.avoid_earnings is on, entries are skipped on a ticker's risk days
+    and open positions are closed at the last close before a risk day.
+    (In live trading, use a forward-looking earnings calendar the same way.)
 
     Returns (trades: list[Trade], equity_curve: pd.Series, stats: dict).
     """
@@ -117,19 +127,42 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
             exit_price, reason = None, None
 
             o, h, l, c = row["open"], row["high"], row["low"], row["close"]
+
+            # effective protective level: initial stop, trailing stops and
+            # breakeven all collapse into "highest active stop". Trails are
+            # ratcheted from the *previous* bar's peaks (no same-bar lookahead).
+            eff_stop = pos.stop if np.isfinite(pos.stop) else -np.inf
+            if params.trail_atr_mult > 0:
+                atr_now = row["atr14"] if np.isfinite(row["atr14"]) else pos.entry_atr
+                eff_stop = max(eff_stop, pos.peak_high - params.trail_atr_mult * atr_now)
+            if params.trail_pct > 0:
+                eff_stop = max(eff_stop, pos.peak_close * (1.0 - params.trail_pct))
+            if params.breakeven_atr > 0 and np.isfinite(pos.entry_atr):
+                if pos.peak_high >= pos.entry_price + params.breakeven_atr * pos.entry_atr:
+                    eff_stop = max(eff_stop, pos.entry_price)
+
             # gap-aware stop / target, stop takes priority on the same bar
-            if np.isfinite(pos.stop) and (o <= pos.stop or l <= pos.stop):
-                exit_price = o if o <= pos.stop else pos.stop
-                reason = "stop"
+            if np.isfinite(eff_stop) and eff_stop > -np.inf and (o <= eff_stop or l <= eff_stop):
+                exit_price = o if o <= eff_stop else eff_stop
+                reason = "stop" if eff_stop == pos.stop else "trail_stop"
             elif np.isfinite(pos.target) and (o >= pos.target or h >= pos.target):
                 exit_price = o if o >= pos.target else pos.target
                 reason = "target"
             elif params.stop_close_pct > 0 and c <= pos.entry_price * (1.0 - params.stop_close_pct):
                 exit_price, reason = c, "close_stop"
+            elif params.avoid_earnings and earnings is not None and i + 1 < len(df) \
+                    and df.index[i + 1] in earnings.get(t, ()):
+                exit_price, reason = c, "earnings"
             elif params.exit_rsi_min > 0 and row[params.exit_rsi_col] >= params.exit_rsi_min:
                 exit_price, reason = c, "rsi_strength"
+            elif params.exit_below_ema10 and np.isfinite(row["ema10"]) and c < row["ema10"]:
+                exit_price, reason = c, "below_ema10"
             elif pos.bars_held >= params.max_hold_days:
                 exit_price, reason = c, "time"
+
+            # update peaks for the next bar's trail calculations
+            pos.peak_high = max(pos.peak_high, h)
+            pos.peak_close = max(pos.peak_close, c)
 
             if exit_price is not None:
                 proceeds = pos.shares * exit_price * exit_cost
@@ -156,6 +189,9 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
                     continue
                 i = locs[t].get(day)
                 if i is None or i == 0:
+                    continue
+                if params.avoid_earnings and earnings is not None \
+                        and day in earnings.get(t, ()):
                     continue
                 prev_i = i - 1
                 if not setups[t].iloc[prev_i]:
@@ -184,7 +220,12 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
                     continue
                 cash -= shares * cost_per_share
                 stop, target = initial_stop_target(fill, atr_value, params)
-                positions[t] = _Pos(t, day, fill, float(shares), stop, target)
+                pos = _Pos(t, day, fill, float(shares), stop, target, atr_value)
+                # seed peaks with the entry day's own extremes
+                row = frames[t].iloc[locs[t][day]]
+                pos.peak_high = max(fill, float(row["high"]))
+                pos.peak_close = max(fill, float(row["close"]))
+                positions[t] = pos
 
         # ---------- mark to market ----------
         mtm = cash

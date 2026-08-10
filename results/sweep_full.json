@@ -1,0 +1,79 @@
+[
+ {
+  "start": "2018-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "e0:ref_rsi85_t6",
+    "n_trades": 494,
+    "total_return_pct": 17.59,
+    "cagr_pct": 2.17,
+    "max_drawdown_pct": -18.71,
+    "sharpe": 0.25,
+    "win_rate_pct": 57.7,
+    "avg_trade_pct": 0.205,
+    "profit_factor": 1.1,
+    "avg_hold_days": 4.6,
+    "exit_reasons": {
+     "time": 227,
+     "rsi_strength": 224,
+     "earnings": 43
+    }
+   }
+  ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "e0:ref_rsi85_t6",
+    "n_trades": 494,
+    "total_return_pct": 27.59,
+    "cagr_pct": 3.28,
+    "max_drawdown_pct": -18.47,
+    "sharpe": 0.34,
+    "win_rate_pct": 58.7,
+    "avg_trade_pct": 0.294,
+    "profit_factor": 1.15,
+    "avg_hold_days": 4.8,
+    "exit_reasons": {
+     "rsi_strength": 248,
+     "time": 246
+    }
+   }
+  ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "e0:ref_rsi85_t6",
+    "n_trades": 502,
+    "total_return_pct": 28.61,
+    "cagr_pct": 3.38,
+    "max_drawdown_pct": -18.51,
+    "sharpe": 0.35,
+    "win_rate_pct": 58.4,
+    "avg_trade_pct": 0.293,
+    "profit_factor": 1.16,
+    "avg_hold_days": 4.7,
+    "exit_reasons": {
+     "rsi_strength": 239,
+     "time": 232,
+     "earnings": 31
+    }
+   }
+  ]
+ }
+]
