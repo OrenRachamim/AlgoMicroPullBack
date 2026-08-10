@@ -566,5 +566,82 @@
     }
    }
   ]
+ },
+ {
+  "start": "2018-01-01",
+  "end": "2025-08-01",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "e22:rsi65_t5",
+    "n_trades": 576,
+    "total_return_pct": 57.78,
+    "cagr_pct": 6.22,
+    "max_drawdown_pct": -18.43,
+    "sharpe": 0.66,
+    "win_rate_pct": 64.8,
+    "avg_trade_pct": 0.422,
+    "profit_factor": 1.4,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 437,
+     "time": 118,
+     "earnings": 21
+    }
+   },
+   {
+    "variant": "e25:rsi60_t5",
+    "n_trades": 595,
+    "total_return_pct": 52.81,
+    "cagr_pct": 5.77,
+    "max_drawdown_pct": -16.94,
+    "sharpe": 0.64,
+    "win_rate_pct": 65.0,
+    "avg_trade_pct": 0.379,
+    "profit_factor": 1.37,
+    "avg_hold_days": 2.7,
+    "exit_reasons": {
+     "rsi_strength": 485,
+     "time": 90,
+     "earnings": 20
+    }
+   },
+   {
+    "variant": "e26:rsi55_t5",
+    "n_trades": 610,
+    "total_return_pct": 46.0,
+    "cagr_pct": 5.13,
+    "max_drawdown_pct": -17.65,
+    "sharpe": 0.58,
+    "win_rate_pct": 63.9,
+    "avg_trade_pct": 0.331,
+    "profit_factor": 1.33,
+    "avg_hold_days": 2.5,
+    "exit_reasons": {
+     "rsi_strength": 516,
+     "time": 74,
+     "earnings": 20
+    }
+   },
+   {
+    "variant": "e27:rsi65_t6",
+    "n_trades": 567,
+    "total_return_pct": 46.03,
+    "cagr_pct": 5.14,
+    "max_drawdown_pct": -17.57,
+    "sharpe": 0.54,
+    "win_rate_pct": 66.0,
+    "avg_trade_pct": 0.362,
+    "profit_factor": 1.3,
+    "avg_hold_days": 3.1,
+    "exit_reasons": {
+     "rsi_strength": 458,
+     "time": 87,
+     "earnings": 22
+    }
+   }
+  ]
  }
 ]
