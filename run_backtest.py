@@ -24,13 +24,17 @@ RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results"
 
 def main() -> None:
     ap = argparse.ArgumentParser(description="Micro-pullback backtest")
-    ap.add_argument("--universe", choices=["small", "extended", "nasdaq", "full"], default="small")
+    ap.add_argument("--universe", choices=["small", "extended", "nasdaq", "full", "broad"], default="small")
     ap.add_argument("--start", default="2022-01-01", help="backtest start (data warm-up added automatically)")
     ap.add_argument("--end", default="2025-12-31")
     ap.add_argument("--variant", default="v1", choices=sorted(VARIANTS.keys()))
     ap.add_argument("--max-positions", type=int, default=8)
     ap.add_argument("--regime", choices=["none", "spy200", "spy100", "spy200+50"], default="none")
     ap.add_argument("--rank", choices=["rsi", "momentum"], default="rsi")
+    ap.add_argument("--capital", type=float, default=100_000.0,
+                    help="initial capital")
+    ap.add_argument("--broad-limit", type=int, default=600,
+                    help="size of the dynamic broad universe")
     ap.add_argument("--no-earnings-filter", action="store_true",
                     help="disable SEC-EDGAR earnings avoidance")
     ap.add_argument("--earn-before", type=int, default=0,
@@ -40,8 +44,12 @@ def main() -> None:
     ap.add_argument("--save", default=None, help="save stats+trades JSON under results/<name>.json")
     args = ap.parse_args()
 
-    tickers = {"small": SMALL_UNIVERSE, "extended": EXTENDED_UNIVERSE,
-               "nasdaq": NASDAQ_UNIVERSE, "full": FULL_UNIVERSE}[args.universe]
+    if args.universe == "broad":
+        from micro_pullback.universe import get_broad_universe
+        tickers = get_broad_universe(limit=args.broad_limit)
+    else:
+        tickers = {"small": SMALL_UNIVERSE, "extended": EXTENDED_UNIVERSE,
+                   "nasdaq": NASDAQ_UNIVERSE, "full": FULL_UNIVERSE}[args.universe]
     # warm-up: fetch ~1 extra year of data before the backtest window for indicators
     import datetime as dt
     fetch_start = (dt.date.fromisoformat(args.start) - dt.timedelta(days=400)).isoformat()
@@ -52,7 +60,8 @@ def main() -> None:
 
     data = {t: add_indicators(df) for t, df in raw.items()}
     params = VARIANTS[args.variant]
-    cfg = BacktestConfig(max_positions=args.max_positions, rank_by=args.rank)
+    cfg = BacktestConfig(max_positions=args.max_positions, rank_by=args.rank,
+                         initial_capital=args.capital)
 
     regime = None
     spy = None

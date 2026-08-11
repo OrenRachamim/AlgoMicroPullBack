@@ -25,7 +25,7 @@ COLS = ["variant", "n_trades", "total_return_pct", "cagr_pct", "max_drawdown_pct
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--universe", choices=["small", "extended", "nasdaq", "full"], default="small")
+    ap.add_argument("--universe", choices=["small", "extended", "nasdaq", "full", "broad"], default="small")
     ap.add_argument("--start", default="2022-01-01")
     ap.add_argument("--end", default="2025-08-01")
     ap.add_argument("--variants", default=None, help="comma-separated subset, default all")
@@ -34,6 +34,10 @@ def main() -> None:
                     help="market regime filter: allow entries only when SPY > SMA-N "
                          "(spy200+50: above both SMA200 and SMA50)")
     ap.add_argument("--rank", choices=["rsi", "momentum"], default="rsi")
+    ap.add_argument("--capital", type=float, default=100_000.0,
+                    help="initial capital")
+    ap.add_argument("--broad-limit", type=int, default=600,
+                    help="size of the dynamic broad universe")
     ap.add_argument("--no-earnings-filter", action="store_true",
                     help="disable SEC-EDGAR earnings avoidance")
     ap.add_argument("--earn-before", type=int, default=0,
@@ -42,8 +46,12 @@ def main() -> None:
                     help="extra risk days after the earnings filing date")
     args = ap.parse_args()
 
-    tickers = {"small": SMALL_UNIVERSE, "extended": EXTENDED_UNIVERSE,
-               "nasdaq": NASDAQ_UNIVERSE, "full": FULL_UNIVERSE}[args.universe]
+    if args.universe == "broad":
+        from micro_pullback.universe import get_broad_universe
+        tickers = get_broad_universe(limit=args.broad_limit)
+    else:
+        tickers = {"small": SMALL_UNIVERSE, "extended": EXTENDED_UNIVERSE,
+                   "nasdaq": NASDAQ_UNIVERSE, "full": FULL_UNIVERSE}[args.universe]
     fetch_start = (dt.date.fromisoformat(args.start) - dt.timedelta(days=400)).isoformat()
     print(f"Loading {len(tickers)} tickers {fetch_start} -> {args.end} ...")
     raw = load_universe(tickers, fetch_start, args.end)
@@ -75,7 +83,8 @@ def main() -> None:
     rows = []
     for name in names:
         params = VARIANTS[name]
-        cfg = BacktestConfig(max_positions=args.max_positions, rank_by=args.rank)
+        cfg = BacktestConfig(max_positions=args.max_positions, rank_by=args.rank,
+                         initial_capital=args.capital)
         _, _, stats = run_backtest(data, params, cfg, start=args.start, end=args.end,
                                    regime=regime, earnings=earnings)
         row = {"variant": f"{name}:{params.name}"}
