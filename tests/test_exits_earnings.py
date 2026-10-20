@@ -32,6 +32,20 @@ def test_earnings_blocks_entry():
     assert all(t.entry_date != entry_day for t in trades)
 
 
+def test_earnings_next_day_blocks_entry():
+    """A new position would be held overnight, so an entry is also blocked
+    when the NEXT trading day is an earnings-risk day."""
+    data = make_universe_with_pullback()
+    p = StrategyParams(min_dollar_vol=1e6)
+    base_trades, _, _ = run_backtest(data, p, BacktestConfig())
+    entry_day = base_trades[0].entry_date
+    df = data["TEST"]
+    next_day = df.index[df.index.get_loc(entry_day) + 1]
+    trades, _, _ = run_backtest(data, p, BacktestConfig(),
+                                earnings={"TEST": {next_day}})
+    assert all(t.entry_date != entry_day for t in trades)
+
+
 def test_earnings_forces_exit_before_risk_day():
     data = make_universe_with_pullback()
     p = StrategyParams(min_dollar_vol=1e6)

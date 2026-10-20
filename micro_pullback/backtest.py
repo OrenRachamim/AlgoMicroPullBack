@@ -200,9 +200,13 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
                 i = locs[t].get(day)
                 if i is None or i == 0:
                     continue
-                if params.avoid_earnings and earnings is not None \
-                        and day in earnings.get(t, ()):
-                    continue
+                if params.avoid_earnings and earnings is not None:
+                    risk = earnings.get(t, ())
+                    # block when the entry day is a risk day, and also when the
+                    # NEXT day is: a new position is held at least overnight,
+                    # so it would sit through the announcement.
+                    if day in risk or (i + 1 < len(df) and df.index[i + 1] in risk):
+                        continue
                 prev_i = i - 1
                 if not setups[t].iloc[prev_i]:
                     continue
