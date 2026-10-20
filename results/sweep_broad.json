@@ -152,5 +152,91 @@
     }
    }
   ]
+ },
+ {
+  "start": "2023-10-19",
+  "end": "2026-10-19",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "final:final_leaders_20",
+    "n_trades": 623,
+    "total_return_pct": 62.31,
+    "cagr_pct": 17.65,
+    "max_drawdown_pct": -19.29,
+    "sharpe": 1.17,
+    "win_rate_pct": 63.6,
+    "avg_trade_pct": 0.414,
+    "profit_factor": 1.35,
+    "avg_hold_days": 2.8,
+    "exit_reasons": {
+     "rsi_strength": 474,
+     "time": 126,
+     "earnings": 23
+    }
+   },
+   {
+    "variant": "final+f1:final_leaders_20+",
+    "n_trades": 708,
+    "total_return_pct": 63.62,
+    "cagr_pct": 17.96,
+    "max_drawdown_pct": -20.2,
+    "sharpe": 1.12,
+    "win_rate_pct": 63.3,
+    "avg_trade_pct": 0.376,
+    "profit_factor": 1.3,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 537,
+     "time": 148,
+     "earnings": 23
+    }
+   }
+  ]
+ },
+ {
+  "start": "2023-10-19",
+  "end": "2026-10-19",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "f1:fresh_60d_6m",
+    "n_trades": 294,
+    "total_return_pct": 32.23,
+    "cagr_pct": 9.83,
+    "max_drawdown_pct": -8.06,
+    "sharpe": 1.16,
+    "win_rate_pct": 66.3,
+    "avg_trade_pct": 0.512,
+    "profit_factor": 1.49,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 221,
+     "time": 65,
+     "earnings": 8
+    }
+   },
+   {
+    "variant": "f5:fresh_60d_mom10",
+    "n_trades": 193,
+    "total_return_pct": 28.42,
+    "cagr_pct": 8.76,
+    "max_drawdown_pct": -6.81,
+    "sharpe": 1.41,
+    "win_rate_pct": 67.9,
+    "avg_trade_pct": 0.704,
+    "profit_factor": 1.78,
+    "avg_hold_days": 2.8,
+    "exit_reasons": {
+     "rsi_strength": 149,
+     "time": 38,
+     "earnings": 6
+    }
+   }
+  ]
  }
 ]
