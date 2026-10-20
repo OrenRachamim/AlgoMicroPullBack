@@ -1,0 +1,113 @@
+[
+ {
+  "start": "2023-10-19",
+  "end": "2026-10-19",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "final:final_leaders_20",
+    "n_trades": 629,
+    "total_return_pct": 64.2,
+    "cagr_pct": 18.11,
+    "max_drawdown_pct": -18.74,
+    "sharpe": 1.16,
+    "win_rate_pct": 63.4,
+    "avg_trade_pct": 0.427,
+    "profit_factor": 1.34,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 478,
+     "time": 128,
+     "earnings": 23
+    }
+   },
+   {
+    "variant": "f1:fresh_60d_6m",
+    "n_trades": 299,
+    "total_return_pct": 34.69,
+    "cagr_pct": 10.51,
+    "max_drawdown_pct": -7.81,
+    "sharpe": 1.22,
+    "win_rate_pct": 66.9,
+    "avg_trade_pct": 0.545,
+    "profit_factor": 1.51,
+    "avg_hold_days": 2.8,
+    "exit_reasons": {
+     "rsi_strength": 225,
+     "time": 65,
+     "earnings": 9
+    }
+   },
+   {
+    "variant": "f2:fresh_30d_6m",
+    "n_trades": 230,
+    "total_return_pct": 18.28,
+    "cagr_pct": 5.8,
+    "max_drawdown_pct": -7.18,
+    "sharpe": 0.8,
+    "win_rate_pct": 67.0,
+    "avg_trade_pct": 0.393,
+    "profit_factor": 1.35,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 168,
+     "time": 54,
+     "earnings": 8
+    }
+   },
+   {
+    "variant": "f3:fresh_90d_6m",
+    "n_trades": 354,
+    "total_return_pct": 38.84,
+    "cagr_pct": 11.64,
+    "max_drawdown_pct": -11.42,
+    "sharpe": 1.12,
+    "win_rate_pct": 66.7,
+    "avg_trade_pct": 0.522,
+    "profit_factor": 1.45,
+    "avg_hold_days": 2.8,
+    "exit_reasons": {
+     "rsi_strength": 266,
+     "time": 77,
+     "earnings": 11
+    }
+   },
+   {
+    "variant": "f4:fresh_60d_12m",
+    "n_trades": 67,
+    "total_return_pct": 7.09,
+    "cagr_pct": 2.32,
+    "max_drawdown_pct": -4.36,
+    "sharpe": 0.65,
+    "win_rate_pct": 65.7,
+    "avg_trade_pct": 0.531,
+    "profit_factor": 1.42,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 50,
+     "time": 16,
+     "earnings": 1
+    }
+   },
+   {
+    "variant": "f5:fresh_60d_mom10",
+    "n_trades": 195,
+    "total_return_pct": 30.32,
+    "cagr_pct": 9.29,
+    "max_drawdown_pct": -6.72,
+    "sharpe": 1.47,
+    "win_rate_pct": 68.2,
+    "avg_trade_pct": 0.732,
+    "profit_factor": 1.83,
+    "avg_hold_days": 2.8,
+    "exit_reasons": {
+     "rsi_strength": 151,
+     "time": 38,
+     "earnings": 6
+    }
+   }
+  ]
+ }
+]

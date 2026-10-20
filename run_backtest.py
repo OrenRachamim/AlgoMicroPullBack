@@ -27,7 +27,8 @@ def main() -> None:
     ap.add_argument("--universe", choices=["small", "extended", "nasdaq", "full", "broad"], default="small")
     ap.add_argument("--start", default="2022-01-01", help="backtest start (data warm-up added automatically)")
     ap.add_argument("--end", default="2025-12-31")
-    ap.add_argument("--variant", default="v1", choices=sorted(VARIANTS.keys()))
+    ap.add_argument("--variant", default="v1",
+                    help="variant name, or 'a+b' for a union of setups")
     ap.add_argument("--max-positions", type=int, default=8)
     ap.add_argument("--regime", choices=["none", "spy200", "spy100", "spy200+50"], default="none")
     ap.add_argument("--rank", choices=["rsi", "momentum"], default="rsi")
@@ -62,7 +63,10 @@ def main() -> None:
     print(f"Loaded {len(raw)} tickers")
 
     data = {t: add_indicators(df) for t, df in raw.items()}
-    params = VARIANTS[args.variant]
+    if "+" in args.variant:
+        params = [VARIANTS[p] for p in args.variant.split("+")]
+    else:
+        params = VARIANTS[args.variant]
     cfg = BacktestConfig(max_positions=args.max_positions, rank_by=args.rank,
                          initial_capital=args.capital)
 
@@ -97,7 +101,8 @@ def main() -> None:
         if len(spy_win) > 1:
             stats["benchmark_spy_pct"] = round(100 * (spy_win.iloc[-1] / spy_win.iloc[0] - 1.0), 2)
 
-    print(f"\n=== Variant {args.variant} ({params.name}) | universe={args.universe} "
+    pname = params[0].name + "+" if isinstance(params, list) else params.name
+    print(f"\n=== Variant {args.variant} ({pname}) | universe={args.universe} "
           f"| {args.start}..{args.end} | regime={args.regime} | rank={args.rank} "
           f"| max_pos={args.max_positions} ===")
     for k, v in stats.items():
@@ -107,7 +112,7 @@ def main() -> None:
         os.makedirs(RESULTS_DIR, exist_ok=True)
         out = {
             "variant": args.variant,
-            "params": params.to_dict(),
+            "params": [p.to_dict() for p in params] if isinstance(params, list) else params.to_dict(),
             "universe": args.universe,
             "start": args.start,
             "end": args.end,

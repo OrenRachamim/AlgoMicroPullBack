@@ -85,12 +85,16 @@ def main() -> None:
     names = args.variants.split(",") if args.variants else sorted(VARIANTS.keys())
     rows = []
     for name in names:
-        params = VARIANTS[name]
+        if "+" in name:  # union of several variants' setups (shared execution rules)
+            params = [VARIANTS[p] for p in name.split("+")]
+        else:
+            params = VARIANTS[name]
         cfg = BacktestConfig(max_positions=args.max_positions, rank_by=args.rank,
                          initial_capital=args.capital)
         _, _, stats = run_backtest(data, params, cfg, start=args.start, end=args.end,
                                    regime=regime, earnings=earnings)
-        row = {"variant": f"{name}:{params.name}"}
+        pname = params[0].name + "+" if isinstance(params, list) else params.name
+        row = {"variant": f"{name}:{pname}"}
         row.update({k: stats.get(k) for k in COLS[1:]})
         row["exit_reasons"] = stats.get("exit_reasons", {})
         rows.append(row)

@@ -81,8 +81,15 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
     and open positions are closed at the last close before a risk day.
     (In live trading, use a forward-looking earnings calendar the same way.)
 
+    `params` may be a list of StrategyParams: setups are the UNION of all
+    sets' setups (a bar qualifies if any param set's conditions hold).
+    Execution (entry mode, exits, sizing) follows the FIRST set, so combine
+    only configurations that share the same execution rules.
+
     Returns (trades: list[Trade], equity_curve: pd.Series, stats: dict).
     """
+    params_list = params if isinstance(params, (list, tuple)) else [params]
+    params = params_list[0]
     cfg = config or BacktestConfig()
     if regime is not None:
         # use yesterday's regime state for today's entries
@@ -100,7 +107,10 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
         if len(df) < 130:
             continue
         frames[t] = df
-        setups[t] = compute_setup(df, params)
+        s = compute_setup(df, params_list[0])
+        for extra in params_list[1:]:
+            s = s | compute_setup(df, extra)
+        setups[t] = s
         all_dates.update(df.index)
     calendar = pd.DatetimeIndex(sorted(all_dates))
 
