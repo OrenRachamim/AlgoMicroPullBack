@@ -1,0 +1,78 @@
+import numpy as np
+import pandas as pd
+
+from micro_pullback.indicators import add_indicators
+from micro_pullback.strategy import StrategyParams, compute_setup
+
+
+def make_fresh_cross_frame(n_below=300, n_up=80):
+    """Long sideways/down base below the MAs, then a breakout above all MAs,
+    then a shallow 3-day dip inside the fresh-uptrend window."""
+    rng = pd.bdate_range("2022-01-03", periods=n_below + n_up + 3)
+    # base: slow decline keeps price below the long MAs
+    base = np.linspace(150, 100, n_below)
+    # breakout: strong rally above every MA
+    up = np.linspace(102, 160, n_up)
+    top = up[-1]
+    dip = top * np.array([0.99, 0.975, 0.965])
+    closes = np.concatenate([base, up, dip])
+    prev = np.r_[closes[0], closes[:-1]]
+    df = pd.DataFrame({
+        "open": prev,
+        "high": np.maximum(closes, prev) * 1.005,
+        "low": np.minimum(closes, prev) * 0.995,
+        "close": closes,
+        "volume": 5_000_000,
+    }, index=rng)
+    return add_indicators(df)
+
+
+def fresh_params(**kw):
+    base = dict(min_dollar_vol=1e6, require_sma50_above_sma100=False,
+                require_rising_sma50=False, min_ret63=0.001,
+                fresh_cross_lookback=60, fresh_min_days_below=126,
+                fresh_max_prior_above=5)
+    base.update(kw)
+    return StrategyParams(**base)
+
+
+def test_above_all_ma_column():
+    df = make_fresh_cross_frame()
+    # late in the rally the price is above all MAs; deep in the base it is not
+    assert bool(df["above_all_ma"].iloc[-5])
+    assert not bool(df["above_all_ma"].iloc[200])
+
+
+def test_fresh_setup_fires_after_breakout_dip():
+    df = make_fresh_cross_frame()
+    p = fresh_params()
+    setup = compute_setup(df, p)
+    assert bool(setup.iloc[-1]), "dip shortly after a fresh cross should fire"
+
+
+def test_fresh_filter_blocks_old_uptrends():
+    """A stock that has been above all MAs for years never qualifies."""
+    rng = pd.bdate_range("2022-01-03", periods=500)
+    closes = np.linspace(100, 300, 500)
+    # add the dip at the end
+    closes[-3:] = closes[-4] * np.array([0.99, 0.975, 0.965])
+    prev = np.r_[closes[0], closes[:-1]]
+    df = pd.DataFrame({
+        "open": prev,
+        "high": np.maximum(closes, prev) * 1.005,
+        "low": np.minimum(closes, prev) * 0.995,
+        "close": closes,
+        "volume": 5_000_000,
+    }, index=rng)
+    df = add_indicators(df)
+    p = fresh_params()
+    setup = compute_setup(df, p)
+    assert not setup.iloc[-40:].any(), "long-established uptrend must not count as fresh"
+
+
+def test_fresh_lookback_window_expires():
+    df = make_fresh_cross_frame(n_below=300, n_up=80)
+    # with a tiny lookback the dip (3 bars after an 80-bar rally) is too late
+    p = fresh_params(fresh_cross_lookback=10)
+    setup = compute_setup(df, p)
+    assert not bool(setup.iloc[-1])

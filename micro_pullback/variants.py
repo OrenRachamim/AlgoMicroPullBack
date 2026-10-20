@@ -295,3 +295,36 @@ EXIT_VARIANTS: dict[str, StrategyParams] = {
 }
 
 VARIANTS.update(EXIT_VARIANTS)
+
+# ---------------------------------------------------------------------------
+# Fresh-breakout family: the original micro-pullback traded ONLY on stocks
+# that recently crossed above ALL moving averages (SMA10..SMA200) for the
+# first time after a long stretch below — the start of a new uptrend — with
+# positive price momentum. MA-ordering gates are relaxed because right after
+# a long base SMA50 may still sit below SMA100/200; the cross itself is the
+# trend evidence. Exits follow the researched final rule (RSI2>65 / 5 days).
+# ---------------------------------------------------------------------------
+_F = replace(VARIANTS["final"],
+             require_sma50_above_sma100=False, require_rising_sma50=False,
+             min_ret63=0.001)  # momentum: positive, not necessarily +20%
+
+FRESH_VARIANTS: dict[str, StrategyParams] = {
+    # f1 — reference: cross within last 60 days, >=6 months (almost) below before
+    "f1": replace(_F, name="fresh_60d_6m", fresh_cross_lookback=60,
+                  fresh_min_days_below=126, fresh_max_prior_above=5),
+    # f2 — tighter window after the cross (30 days)
+    "f2": replace(_F, name="fresh_30d_6m", fresh_cross_lookback=30,
+                  fresh_min_days_below=126, fresh_max_prior_above=5),
+    # f3 — longer window (90 days)
+    "f3": replace(_F, name="fresh_90d_6m", fresh_cross_lookback=90,
+                  fresh_min_days_below=126, fresh_max_prior_above=5),
+    # f4 — "really long time below": >=1 year
+    "f4": replace(_F, name="fresh_60d_12m", fresh_cross_lookback=60,
+                  fresh_min_days_below=252, fresh_max_prior_above=8),
+    # f5 — f1 but demanding real momentum too (>=10% in 3 months)
+    "f5": replace(_F, name="fresh_60d_mom10", fresh_cross_lookback=60,
+                  fresh_min_days_below=126, fresh_max_prior_above=5,
+                  min_ret63=0.10),
+}
+
+VARIANTS.update(FRESH_VARIANTS)

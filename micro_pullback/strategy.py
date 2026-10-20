@@ -36,6 +36,14 @@ class StrategyParams:
     require_rsi14_min: float = 40.0          # longer-term RSI still healthy
     min_pct_of_52w_high: float = 0.0         # close >= X * 52-week high (0 disables)
 
+    # --- fresh-breakout regime (0 disables) ---
+    # Restrict setups to stocks that recently crossed above ALL moving
+    # averages (SMA10/20/50/100/200) for the first time after a long stretch
+    # of not being above them: the start of a new uptrend.
+    fresh_cross_lookback: int = 0            # setup allowed within N trading days after a qualifying cross
+    fresh_min_days_below: int = 126          # prior stretch (trading days) in which the stock was (almost) never above all MAs
+    fresh_max_prior_above: int = 5           # tolerance: max days above-all inside that prior stretch
+
     # --- pullback definition ---
     rsi_entry_col: str = "rsi3"              # short RSI used for the dip
     rsi_entry_max: float = 30.0              # dip: short RSI below this
@@ -115,6 +123,19 @@ def compute_setup(df: pd.DataFrame, p: StrategyParams) -> pd.Series:
         ok &= df["rsi14"] >= p.require_rsi14_min
     if p.min_pct_of_52w_high > 0:
         ok &= c >= df["hi252"] * p.min_pct_of_52w_high
+
+    # fresh-breakout regime: a qualifying cross above all MAs happened within
+    # the last `fresh_cross_lookback` days, after >= `fresh_min_days_below`
+    # days of (almost) never being above them.
+    if p.fresh_cross_lookback > 0:
+        above = df["above_all_ma"].fillna(False)
+        prior_above = above.shift(1).rolling(p.fresh_min_days_below,
+                                             min_periods=p.fresh_min_days_below).sum()
+        cross = above & above.shift(1).notna() & (prior_above <= p.fresh_max_prior_above)
+        # also require the MAs themselves to be valid (enough history)
+        cross &= df["sma200"].notna()
+        fresh = cross.rolling(p.fresh_cross_lookback, min_periods=1).max().astype(bool)
+        ok &= fresh
 
     # pullback
     ok &= df[p.rsi_entry_col] <= p.rsi_entry_max

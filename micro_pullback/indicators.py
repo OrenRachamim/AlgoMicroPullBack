@@ -76,9 +76,17 @@ def add_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """Attach the indicator columns used by the strategies."""
     out = df.copy()
     c = out["close"]
+    out["sma10"] = sma(c, 10)
     out["sma20"] = sma(c, 20)
     out["sma50"] = sma(c, 50)
     out["sma100"] = sma(c, 100)
+    out["sma200"] = sma(c, 200)
+    # above_all_ma: price above every MA from 10 to 200 — the "all MA lines
+    # below price" condition used by the fresh-breakout regime filter.
+    out["above_all_ma"] = (
+        (c > out["sma10"]) & (c > out["sma20"]) & (c > out["sma50"])
+        & (c > out["sma100"]) & (c > out["sma200"])
+    )
     out["ema10"] = ema(c, 10)
     out["ema20"] = ema(c, 20)
     out["rsi2"] = rsi(c, 2)

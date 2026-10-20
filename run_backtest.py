@@ -35,6 +35,9 @@ def main() -> None:
                     help="initial capital")
     ap.add_argument("--broad-limit", type=int, default=600,
                     help="size of the dynamic broad universe")
+    ap.add_argument("--warmup-days", type=int, default=400,
+                    help="calendar days of extra history fetched before start "
+                         "(indicator warm-up; fresh-cross variants need ~700)")
     ap.add_argument("--no-earnings-filter", action="store_true",
                     help="disable SEC-EDGAR earnings avoidance")
     ap.add_argument("--earn-before", type=int, default=0,
@@ -52,7 +55,7 @@ def main() -> None:
                    "nasdaq": NASDAQ_UNIVERSE, "full": FULL_UNIVERSE}[args.universe]
     # warm-up: fetch ~1 extra year of data before the backtest window for indicators
     import datetime as dt
-    fetch_start = (dt.date.fromisoformat(args.start) - dt.timedelta(days=400)).isoformat()
+    fetch_start = (dt.date.fromisoformat(args.start) - dt.timedelta(days=args.warmup_days)).isoformat()
 
     print(f"Loading {len(tickers)} tickers {fetch_start} -> {args.end} ...")
     raw = load_universe(tickers, fetch_start, args.end)
