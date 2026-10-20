@@ -230,7 +230,7 @@ VARIANTS: dict[str, StrategyParams] = {
 # round-2 exit research (4 sweep rounds); see results/ITERATIONS.md.
 # Run with: --regime spy200 --rank momentum --max-positions 5
 # (earnings filter on by default; exits updated in round 2: RSI2>65, 5-day hold)
-VARIANTS["final"] = StrategyParams(name="final_leaders_20", entry_mode="open",
+VARIANTS["leaders"] = StrategyParams(name="leaders_20", entry_mode="open",
                                    rsi_entry_col="rsi2", rsi_entry_max=10.0,
                                    min_down_days=1, min_ret63=0.20,
                                    stop_atr_mult=0.0, max_atr_pct=0.04,
@@ -243,7 +243,7 @@ VARIANTS["final"] = StrategyParams(name="final_leaders_20", entry_mode="open",
 # exits vary. e0 is the round-1 reference exit (RSI2>85, 6-day hold).
 # All e-variants run with the earnings filter active.
 # ---------------------------------------------------------------------------
-_E = replace(VARIANTS["final"], exit_rsi_min=85.0, max_hold_days=6)
+_E = replace(VARIANTS["leaders"], exit_rsi_min=85.0, max_hold_days=6)
 
 EXIT_VARIANTS: dict[str, StrategyParams] = {
     # reference: strength exit RSI2>85 or 6-day time stop
@@ -304,7 +304,7 @@ VARIANTS.update(EXIT_VARIANTS)
 # a long base SMA50 may still sit below SMA100/200; the cross itself is the
 # trend evidence. Exits follow the researched final rule (RSI2>65 / 5 days).
 # ---------------------------------------------------------------------------
-_F = replace(VARIANTS["final"],
+_F = replace(VARIANTS["leaders"],
              require_sma50_above_sma100=False, require_rising_sma50=False,
              min_ret63=0.001)  # momentum: positive, not necessarily +20%
 
@@ -328,3 +328,15 @@ FRESH_VARIANTS: dict[str, StrategyParams] = {
 }
 
 VARIANTS.update(FRESH_VARIANTS)
+
+
+# ---------------------------------------------------------------------------
+# OFFICIAL strategy (user decision after round 3): the fresh-breakout method.
+# Micro pullback traded ONLY on stocks that recently (<=60 trading days)
+# crossed above ALL moving averages (SMA10..SMA200) for the first time after
+# >=6 months (almost) below them, with positive momentum. Exits per the
+# researched rule: RSI2>65 at close, or 5-day time stop; earnings filter on.
+# The previous momentum-leaders configuration remains available as "leaders".
+# Run with: --regime spy200 --rank momentum --max-positions 5 --warmup-days 700
+# ---------------------------------------------------------------------------
+VARIANTS["final"] = replace(FRESH_VARIANTS["f1"], name="final_fresh_breakout")

@@ -27,7 +27,7 @@ def main() -> None:
     ap.add_argument("--universe", choices=["small", "extended", "nasdaq", "full", "broad"], default="small")
     ap.add_argument("--start", default="2022-01-01", help="backtest start (data warm-up added automatically)")
     ap.add_argument("--end", default="2025-12-31")
-    ap.add_argument("--variant", default="v1",
+    ap.add_argument("--variant", default="final",
                     help="variant name, or 'a+b' for a union of setups")
     ap.add_argument("--max-positions", type=int, default=8)
     ap.add_argument("--regime", choices=["none", "spy200", "spy100", "spy200+50"], default="none")
@@ -36,9 +36,9 @@ def main() -> None:
                     help="initial capital")
     ap.add_argument("--broad-limit", type=int, default=600,
                     help="size of the dynamic broad universe")
-    ap.add_argument("--warmup-days", type=int, default=400,
+    ap.add_argument("--warmup-days", type=int, default=700,
                     help="calendar days of extra history fetched before start "
-                         "(indicator warm-up; fresh-cross variants need ~700)")
+                         "(indicator warm-up; the default 700 covers the fresh-cross detection)")
     ap.add_argument("--no-earnings-filter", action="store_true",
                     help="disable SEC-EDGAR earnings avoidance")
     ap.add_argument("--earn-before", type=int, default=0,
