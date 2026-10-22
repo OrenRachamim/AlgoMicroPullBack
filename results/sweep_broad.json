@@ -580,5 +580,64 @@
     }
    }
   ]
+ },
+ {
+  "start": "2023-10-19",
+  "end": "2026-10-19",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "j4:retake_time10",
+    "n_trades": 231,
+    "total_return_pct": 18.29,
+    "cagr_pct": 5.8,
+    "max_drawdown_pct": -16.75,
+    "sharpe": 0.47,
+    "win_rate_pct": 51.5,
+    "avg_trade_pct": 0.419,
+    "profit_factor": 1.18,
+    "avg_hold_days": 9.3,
+    "exit_reasons": {
+     "time": 193,
+     "earnings": 38
+    }
+   },
+   {
+    "variant": "j5:retake_trail",
+    "n_trades": 217,
+    "total_return_pct": 28.29,
+    "cagr_pct": 8.72,
+    "max_drawdown_pct": -16.51,
+    "sharpe": 0.68,
+    "win_rate_pct": 47.5,
+    "avg_trade_pct": 0.592,
+    "profit_factor": 1.25,
+    "avg_hold_days": 9.3,
+    "exit_reasons": {
+     "trail_stop": 120,
+     "time": 59,
+     "earnings": 38
+    }
+   },
+   {
+    "variant": "j6:retake_ema10",
+    "n_trades": 266,
+    "total_return_pct": 13.57,
+    "cagr_pct": 4.36,
+    "max_drawdown_pct": -14.38,
+    "sharpe": 0.39,
+    "win_rate_pct": 35.3,
+    "avg_trade_pct": 0.212,
+    "profit_factor": 1.1,
+    "avg_hold_days": 6.8,
+    "exit_reasons": {
+     "below_ema10": 194,
+     "earnings": 36,
+     "time": 36
+    }
+   }
+  ]
  }
 ]
