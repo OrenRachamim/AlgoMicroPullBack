@@ -421,3 +421,11 @@ VARIANTS["j5"] = replace(VARIANTS["j1"], name="retake_trail",
                          exit_rsi_min=0.0, trail_atr_mult=2.5, max_hold_days=15)
 VARIANTS["j6"] = replace(VARIANTS["j1"], name="retake_ema10",
                          exit_rsi_min=0.0, exit_below_ema10=True, max_hold_days=15)
+
+# j7-j9 — retake entry with very short time exits (1/2/3 days, no RSI, no trail)
+VARIANTS["j7"] = replace(VARIANTS["j1"], name="retake_t1", exit_rsi_min=0.0,
+                         stop_atr_mult=0.0, max_hold_days=1)
+VARIANTS["j8"] = replace(VARIANTS["j1"], name="retake_t2", exit_rsi_min=0.0,
+                         stop_atr_mult=0.0, max_hold_days=2)
+VARIANTS["j9"] = replace(VARIANTS["j1"], name="retake_t3", exit_rsi_min=0.0,
+                         stop_atr_mult=0.0, max_hold_days=3)
