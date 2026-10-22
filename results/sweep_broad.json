@@ -486,5 +486,99 @@
     }
    }
   ]
+ },
+ {
+  "start": "2023-10-19",
+  "end": "2026-10-19",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "final:final_fresh_breakout",
+    "n_trades": 294,
+    "total_return_pct": 32.23,
+    "cagr_pct": 9.83,
+    "max_drawdown_pct": -8.06,
+    "sharpe": 1.16,
+    "win_rate_pct": 66.3,
+    "avg_trade_pct": 0.512,
+    "profit_factor": 1.49,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 221,
+     "time": 65,
+     "earnings": 8
+    }
+   },
+   {
+    "variant": "h2:sma200_deep",
+    "n_trades": 229,
+    "total_return_pct": 14.12,
+    "cagr_pct": 4.53,
+    "max_drawdown_pct": -10.92,
+    "sharpe": 0.65,
+    "win_rate_pct": 64.6,
+    "avg_trade_pct": 0.339,
+    "profit_factor": 1.26,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 171,
+     "time": 52,
+     "earnings": 6
+    }
+   },
+   {
+    "variant": "j1:retake_sma200",
+    "n_trades": 702,
+    "total_return_pct": -9.49,
+    "cagr_pct": -3.29,
+    "max_drawdown_pct": -22.33,
+    "sharpe": -0.21,
+    "win_rate_pct": 56.7,
+    "avg_trade_pct": -0.057,
+    "profit_factor": 0.92,
+    "avg_hold_days": 2.0,
+    "exit_reasons": {
+     "rsi_strength": 586,
+     "time": 87,
+     "earnings": 29
+    }
+   },
+   {
+    "variant": "j2:retake_allma",
+    "n_trades": 859,
+    "total_return_pct": -4.45,
+    "cagr_pct": -1.52,
+    "max_drawdown_pct": -23.11,
+    "sharpe": -0.04,
+    "win_rate_pct": 57.7,
+    "avg_trade_pct": -0.009,
+    "profit_factor": 0.97,
+    "avg_hold_days": 2.0,
+    "exit_reasons": {
+     "rsi_strength": 729,
+     "time": 97,
+     "earnings": 33
+    }
+   },
+   {
+    "variant": "j3:retake_sma200_7pct",
+    "n_trades": 763,
+    "total_return_pct": -13.99,
+    "cagr_pct": -4.93,
+    "max_drawdown_pct": -35.42,
+    "sharpe": -0.3,
+    "win_rate_pct": 56.2,
+    "avg_trade_pct": -0.078,
+    "profit_factor": 0.9,
+    "avg_hold_days": 2.0,
+    "exit_reasons": {
+     "rsi_strength": 635,
+     "time": 98,
+     "earnings": 30
+    }
+   }
+  ]
  }
 ]

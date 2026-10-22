@@ -412,3 +412,12 @@ VARIANTS["j1"] = replace(_J, name="retake_sma200")
 VARIANTS["j2"] = replace(_J, name="retake_allma", fresh_ma="all")
 # j3 — j1 allowing a slightly deeper pullback (up to 7%)
 VARIANTS["j3"] = replace(_J, name="retake_sma200_7pct", max_pullback_pct=0.07)
+
+# j4-j6 — the retake entry paired with trend-following exits instead of the
+# mean-reversion strength exit (which fires immediately after a breakout fill).
+VARIANTS["j4"] = replace(VARIANTS["j1"], name="retake_time10",
+                         exit_rsi_min=0.0, max_hold_days=10)
+VARIANTS["j5"] = replace(VARIANTS["j1"], name="retake_trail",
+                         exit_rsi_min=0.0, trail_atr_mult=2.5, max_hold_days=15)
+VARIANTS["j6"] = replace(VARIANTS["j1"], name="retake_ema10",
+                         exit_rsi_min=0.0, exit_below_ema10=True, max_hold_days=15)
