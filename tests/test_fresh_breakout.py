@@ -76,3 +76,20 @@ def test_fresh_lookback_window_expires():
     p = fresh_params(fresh_cross_lookback=10)
     setup = compute_setup(df, p)
     assert not bool(setup.iloc[-1])
+
+
+def test_moc_entry_fills_on_signal_day():
+    """entry_mode='moc' enters at the signal day's close, not the next open."""
+    from micro_pullback.backtest import BacktestConfig, run_backtest
+    from tests.test_backtest import make_universe_with_pullback
+    data = make_universe_with_pullback()
+    p_open = StrategyParams(min_dollar_vol=1e6, entry_mode="open")
+    p_moc = StrategyParams(min_dollar_vol=1e6, entry_mode="moc")
+    tr_open, _, _ = run_backtest(data, p_open, BacktestConfig())
+    tr_moc, _, _ = run_backtest(data, p_moc, BacktestConfig())
+    assert tr_open and tr_moc
+    df = data["TEST"]
+    i_open = df.index.get_loc(tr_open[0].entry_date)
+    i_moc = df.index.get_loc(tr_moc[0].entry_date)
+    assert i_moc == i_open - 1, "MOC entry should be one bar earlier"
+    assert tr_moc[0].entry_price == float(df.iloc[i_moc]["close"])

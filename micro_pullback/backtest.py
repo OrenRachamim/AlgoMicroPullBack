@@ -208,6 +208,18 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
                     if day in risk or (i + 1 < len(df) and df.index[i + 1] in risk):
                         continue
                 prev_i = i - 1
+                if params.entry_mode == "moc":
+                    # market-on-close on the signal day itself: the setup is
+                    # evaluated on today's (near-)close data and filled at the
+                    # close, one day earlier than the "open" mode. Same MOC
+                    # assumption the strength/time exits already use.
+                    if not setups[t].iloc[i]:
+                        continue
+                    row = df.iloc[i]
+                    fill = float(row["close"])
+                    rank_key = row[params.rsi_entry_col] if cfg.rank_by == "rsi" else -row["ret63"]
+                    candidates.append((rank_key, t, fill, float(row["atr14"])))
+                    continue
                 if not setups[t].iloc[prev_i]:
                     continue
                 prev = df.iloc[prev_i]

@@ -54,7 +54,7 @@ class StrategyParams:
     max_dist_ema20: float = 0.03             # close within 3% of / above EMA20 - support zone
 
     # --- entry ---
-    entry_mode: str = "breakout"             # "breakout": next day takes out prev high; "open": next open
+    entry_mode: str = "breakout"             # "breakout": next day takes out prev high | "open": next open | "moc": signal day's close
     breakout_buffer: float = 0.001           # 0.1% above previous high
 
     # --- exit ---

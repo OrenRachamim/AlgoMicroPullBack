@@ -371,3 +371,10 @@ SHALLOW_VARIANTS = {
                   exit_rsi_min=70.0, max_hold_days=4),
 }
 VARIANTS.update(SHALLOW_VARIANTS)
+
+# g6/g7 — earlier in TIME, not shallower: enter at the close of the signal
+# day itself (MOC) instead of the next open, keeping the deep RSI2<10 dip.
+# g7 also relaxes the dip slightly (RSI2<15) since execution is a day earlier.
+VARIANTS["g6"] = replace(VARIANTS["final"], name="fresh_moc", entry_mode="moc")
+VARIANTS["g7"] = replace(VARIANTS["final"], name="fresh_moc_rsi15",
+                         entry_mode="moc", rsi_entry_max=15.0)
