@@ -44,6 +44,7 @@ class StrategyParams:
     fresh_min_days_below: int = 126          # prior stretch (trading days) in which the stock was (almost) never above all MAs
     fresh_max_prior_above: int = 5           # tolerance: max days above-all inside that prior stretch
     fresh_ma: str = "all"                    # which line defines the cross: "all" (SMA10..200) or "sma200" only
+    one_trade_per_cycle: bool = False        # take only the FIRST trade per breakout cycle; the ticker re-arms only after a new qualifying cross (long stretch below the line again)
 
     # --- pullback definition ---
     rsi_entry_col: str = "rsi3"              # short RSI used for the dip
@@ -223,3 +224,29 @@ def initial_stop_target(entry: float, atr_value: float, p: StrategyParams) -> tu
         targets.append(entry + p.target_atr_mult * atr_value)
     target = min(targets) if targets else np.inf
     return stop, target
+
+
+def compute_cycle_id(df: pd.DataFrame, p: StrategyParams) -> pd.Series:
+    """Breakout-cycle id per bar (0 before the first cycle).
+
+    A cycle starts at a qualifying fresh cross (first close above the line
+    after >= fresh_min_days_below days with at most fresh_max_prior_above days
+    above). Qualifying crosses within 10 trading days of the previous one are
+    tolerance artifacts of the same breakout, not a new cycle. A new cycle can
+    only begin after the price has again spent the long stretch below the
+    line — so "one trade per cycle" means: trade the first setup after the
+    cross, then wait for the stock to reset like a new one.
+    """
+    c = df["close"]
+    if p.fresh_ma == "sma200":
+        above = (c > df["sma200"]).fillna(False)
+    else:
+        above = df["above_all_ma"].fillna(False)
+    prior_above = above.shift(1).rolling(p.fresh_min_days_below,
+                                         min_periods=p.fresh_min_days_below).sum()
+    cross = above & above.shift(1).notna() & (prior_above <= p.fresh_max_prior_above)
+    cross &= df["sma200"].notna()
+    # cluster: a cross with no cross in the prior 10 bars starts a new cycle
+    recent = cross.shift(1).rolling(10, min_periods=1).sum().fillna(0)
+    start = cross & (recent == 0)
+    return start.cumsum()

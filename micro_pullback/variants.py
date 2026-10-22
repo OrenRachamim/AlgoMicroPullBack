@@ -429,3 +429,15 @@ VARIANTS["j8"] = replace(VARIANTS["j1"], name="retake_t2", exit_rsi_min=0.0,
                          stop_atr_mult=0.0, max_hold_days=2)
 VARIANTS["j9"] = replace(VARIANTS["j1"], name="retake_t3", exit_rsi_min=0.0,
                          stop_atr_mult=0.0, max_hold_days=3)
+
+# ---------------------------------------------------------------------------
+# k-family — ONE trade per breakout cycle (user spec): only the first setup
+# after the SMA200 cross is traded; the ticker re-arms only after a new
+# qualifying cross (i.e., a long stretch below the line again — "a new stock").
+# ---------------------------------------------------------------------------
+VARIANTS["k1"] = replace(VARIANTS["j5"], name="once_retake_trail",
+                         one_trade_per_cycle=True)
+VARIANTS["k2"] = replace(VARIANTS["j4"], name="once_retake_time10",
+                         one_trade_per_cycle=True)
+VARIANTS["k3"] = replace(VARIANTS["h2"], name="once_sma200_dip",
+                         one_trade_per_cycle=True)

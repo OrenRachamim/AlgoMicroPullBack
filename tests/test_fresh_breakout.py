@@ -133,3 +133,33 @@ def test_retake_entry_triggers_on_peak_recovery():
     tr = trades[0]
     peak_before = data["RTK"].loc[:tr.entry_date, "res10"].iloc[-1]
     assert tr.entry_price >= peak_before, "fill must be at/above the retaken peak"
+
+
+def test_one_trade_per_cycle():
+    """With one_trade_per_cycle, a ticker trades at most once per breakout cycle."""
+    import numpy as np
+    from micro_pullback.backtest import BacktestConfig, run_backtest
+    from micro_pullback.indicators import add_indicators
+    # breakout, dip+recovery (trade 1), then another dip+recovery in the SAME cycle
+    n_below, n_up = 300, 30
+    base = np.linspace(150, 100, n_below)
+    up = np.linspace(102, 140, n_up)
+    seg = lambda top: top * np.array([0.99, 0.975, 0.985, 1.0, 1.02, 1.03])
+    s1 = seg(up[-1]); s2 = seg(s1[-1]); s3 = seg(s2[-1])
+    closes = np.concatenate([base, up, s1, s2, s3])
+    prev = np.r_[closes[0], closes[:-1]]
+    rng = pd.bdate_range("2022-01-03", periods=len(closes))
+    df = pd.DataFrame({"open": prev,
+                       "high": np.maximum(closes, prev) * 1.004,
+                       "low": np.minimum(closes, prev) * 0.996,
+                       "close": closes, "volume": 5_000_000}, index=rng)
+    data = {"ONE": add_indicators(df)}
+    kw = dict(fresh_ma="sma200", entry_mode="retake", pullback_within_days=5,
+              rsi_entry_max=101.0, min_pullback_pct=0.005, max_pullback_pct=0.04,
+              exit_rsi_min=0.0, max_hold_days=3)
+    many, _, _ = run_backtest(data, fresh_params(**kw), BacktestConfig())
+    once, _, _ = run_backtest(data, fresh_params(one_trade_per_cycle=True, **kw),
+                              BacktestConfig())
+    assert len(many) >= 2, "sanity: without the flag there are repeat trades"
+    assert len(once) == 1, "with the flag only the first trade of the cycle happens"
+    assert once[0].entry_date == many[0].entry_date

@@ -19,6 +19,7 @@ import pandas as pd
 
 from .strategy import (
     StrategyParams,
+    compute_cycle_id,
     compute_setup,
     entry_price_for,
     initial_stop_target,
@@ -124,6 +125,13 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
     # Fast lookups: integer positions per ticker calendar.
     locs = {t: {d: i for i, d in enumerate(df.index)} for t, df in frames.items()}
 
+    # one-trade-per-breakout-cycle bookkeeping
+    cycles: dict[str, pd.Series] = {}
+    traded_cycles: dict[str, set] = {}
+    if params.one_trade_per_cycle:
+        cycles = {t: compute_cycle_id(df, params) for t, df in frames.items()}
+        traded_cycles = {t: set() for t in frames}
+
     for day in calendar:
         # ---------- exits ----------
         for t in list(positions.keys()):
@@ -208,6 +216,10 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
                     if day in risk or (i + 1 < len(df) and df.index[i + 1] in risk):
                         continue
                 prev_i = i - 1
+                if params.one_trade_per_cycle:
+                    cyc = int(cycles[t].iloc[prev_i])
+                    if cyc == 0 or cyc in traded_cycles[t]:
+                        continue
                 if params.entry_mode == "moc":
                     # market-on-close on the signal day itself: the setup is
                     # evaluated on today's (near-)close data and filled at the
@@ -247,6 +259,9 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
                     continue
                 cash -= shares * cost_per_share
                 stop, target = initial_stop_target(fill, atr_value, params)
+                if params.one_trade_per_cycle:
+                    i_now = locs[t][day]
+                    traded_cycles[t].add(int(cycles[t].iloc[max(0, i_now - 1)]))
                 pos = _Pos(t, day, fill, float(shares), stop, target, atr_value)
                 # seed peaks with the entry day's own extremes
                 row = frames[t].iloc[locs[t][day]]
