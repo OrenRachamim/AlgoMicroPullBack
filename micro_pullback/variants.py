@@ -340,3 +340,34 @@ VARIANTS.update(FRESH_VARIANTS)
 # Run with: --regime spy200 --rank momentum --max-positions 5 --warmup-days 700
 # ---------------------------------------------------------------------------
 VARIANTS["final"] = replace(FRESH_VARIANTS["f1"], name="final_fresh_breakout")
+
+# ---------------------------------------------------------------------------
+# Shallow-pullback family (g): same fresh-breakout regime as `final`, but the
+# dip trigger fires EARLIER on smaller pauses — the first shallow breather
+# after the cross instead of a deep RSI2<10 washout. Levers: higher RSI
+# threshold, smaller pullback band, or plain consecutive red days.
+# ---------------------------------------------------------------------------
+_G = VARIANTS["final"]
+
+SHALLOW_VARIANTS = {
+    # g1 — moderately earlier: RSI2<20, dip 0.5%-5% off the 20d high
+    "g1": replace(_G, name="shallow_rsi20", rsi_entry_max=20.0,
+                  min_pullback_pct=0.005, max_pullback_pct=0.05),
+    # g2 — much earlier: RSI2<30, dip 0.5%-4%
+    "g2": replace(_G, name="shallow_rsi30", rsi_entry_max=30.0,
+                  min_pullback_pct=0.005, max_pullback_pct=0.04),
+    # g3 — structure instead of depth: two consecutive red days, RSI2 gate
+    # nearly open (<45), dip can be tiny (0.3%-4%)
+    "g3": replace(_G, name="shallow_2red", rsi_entry_max=45.0, min_down_days=2,
+                  min_pullback_pct=0.003, max_pullback_pct=0.04),
+    # g4 — slower oscillator: RSI3<30, dip 0.5%-5%
+    "g4": replace(_G, name="shallow_rsi3_30", rsi_entry_col="rsi3",
+                  rsi_entry_max=30.0, min_pullback_pct=0.005,
+                  max_pullback_pct=0.05),
+    # g5 — g2 with a tighter leash on exits (shallower entry -> faster cycle):
+    # exit RSI2>70 or 4 days
+    "g5": replace(_G, name="shallow_rsi30_fast", rsi_entry_max=30.0,
+                  min_pullback_pct=0.005, max_pullback_pct=0.04,
+                  exit_rsi_min=70.0, max_hold_days=4),
+}
+VARIANTS.update(SHALLOW_VARIANTS)
