@@ -441,3 +441,39 @@ VARIANTS["k2"] = replace(VARIANTS["j4"], name="once_retake_time10",
                          one_trade_per_cycle=True)
 VARIANTS["k3"] = replace(VARIANTS["h2"], name="once_sma200_dip",
                          one_trade_per_cycle=True)
+
+# ---------------------------------------------------------------------------
+# m-grid — the summary experiment: within the fresh SMA200-cross regime,
+# every entry structure we discussed x holding horizons from days to a month.
+# Entries: deep dip (RSI2<10, 1-7%), small dip (RSI2<30, 0.5-4%, next open),
+#          retake (small structural pullback, buy the peak recovery).
+# Exits:   pure time 3/5/10/21 trading days; plus each entry's best-known
+#          pairing (RSI strength for dips, trailing for retake).
+# ---------------------------------------------------------------------------
+_M200 = replace(VARIANTS["final"], fresh_ma="sma200")
+
+_ENTRIES = {
+    "deep":   dict(entry_mode="open", rsi_entry_max=10.0, min_down_days=1,
+                   min_pullback_pct=0.01, max_pullback_pct=0.07,
+                   pullback_within_days=0),
+    "small":  dict(entry_mode="open", rsi_entry_max=30.0, min_down_days=1,
+                   min_pullback_pct=0.005, max_pullback_pct=0.04,
+                   pullback_within_days=0),
+    "retake": dict(entry_mode="retake", rsi_entry_max=101.0, min_down_days=1,
+                   min_pullback_pct=0.005, max_pullback_pct=0.04,
+                   pullback_within_days=5),
+}
+for _en, _ekw in _ENTRIES.items():
+    for _days in (3, 5, 10, 21):
+        VARIANTS[f"m_{_en}_t{_days}"] = replace(
+            _M200, name=f"m_{_en}_t{_days}", exit_rsi_min=0.0,
+            trail_atr_mult=0.0, max_hold_days=_days, **_ekw)
+VARIANTS["m_deep_rsi65t5"] = replace(_M200, name="m_deep_rsi65t5",
+                                     exit_rsi_min=65.0, max_hold_days=5,
+                                     **_ENTRIES["deep"])
+VARIANTS["m_small_rsi65t5"] = replace(_M200, name="m_small_rsi65t5",
+                                      exit_rsi_min=65.0, max_hold_days=5,
+                                      **_ENTRIES["small"])
+VARIANTS["m_retake_trail21"] = replace(_M200, name="m_retake_trail21",
+                                       exit_rsi_min=0.0, trail_atr_mult=2.5,
+                                       max_hold_days=21, **_ENTRIES["retake"])
