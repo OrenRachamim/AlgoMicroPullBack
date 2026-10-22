@@ -93,3 +93,12 @@ def test_moc_entry_fills_on_signal_day():
     i_moc = df.index.get_loc(tr_moc[0].entry_date)
     assert i_moc == i_open - 1, "MOC entry should be one bar earlier"
     assert tr_moc[0].entry_price == float(df.iloc[i_moc]["close"])
+
+
+def test_fresh_ma_sma200_mode():
+    """fresh_ma='sma200' keys the cross off the 200-day line alone."""
+    df = make_fresh_cross_frame()
+    p = fresh_params(fresh_ma="sma200", rsi_entry_max=30.0,
+                     min_pullback_pct=0.005, max_pullback_pct=0.05)
+    setup = compute_setup(df, p)
+    assert setup.any(), "sma200-only cross should qualify the breakout stock"

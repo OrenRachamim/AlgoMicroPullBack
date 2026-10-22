@@ -378,3 +378,17 @@ VARIANTS.update(SHALLOW_VARIANTS)
 VARIANTS["g6"] = replace(VARIANTS["final"], name="fresh_moc", entry_mode="moc")
 VARIANTS["g7"] = replace(VARIANTS["final"], name="fresh_moc_rsi15",
                          entry_mode="moc", rsi_entry_max=15.0)
+
+# ---------------------------------------------------------------------------
+# h-family: the cross condition relaxed to SMA200 ONLY (first close above the
+# 200-day line after >=6 months below), paired with the SMALL pullback
+# trigger. h2 keeps the deep trigger for comparison.
+# ---------------------------------------------------------------------------
+VARIANTS["h1"] = replace(VARIANTS["final"], name="sma200_shallow",
+                         fresh_ma="sma200", rsi_entry_max=30.0,
+                         min_pullback_pct=0.005, max_pullback_pct=0.04)
+VARIANTS["h2"] = replace(VARIANTS["final"], name="sma200_deep",
+                         fresh_ma="sma200")
+VARIANTS["h3"] = replace(VARIANTS["final"], name="sma200_shallow20",
+                         fresh_ma="sma200", rsi_entry_max=20.0,
+                         min_pullback_pct=0.005, max_pullback_pct=0.05)

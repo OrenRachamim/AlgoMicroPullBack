@@ -43,6 +43,7 @@ class StrategyParams:
     fresh_cross_lookback: int = 0            # setup allowed within N trading days after a qualifying cross
     fresh_min_days_below: int = 126          # prior stretch (trading days) in which the stock was (almost) never above all MAs
     fresh_max_prior_above: int = 5           # tolerance: max days above-all inside that prior stretch
+    fresh_ma: str = "all"                    # which line defines the cross: "all" (SMA10..200) or "sma200" only
 
     # --- pullback definition ---
     rsi_entry_col: str = "rsi3"              # short RSI used for the dip
@@ -128,7 +129,10 @@ def compute_setup(df: pd.DataFrame, p: StrategyParams) -> pd.Series:
     # the last `fresh_cross_lookback` days, after >= `fresh_min_days_below`
     # days of (almost) never being above them.
     if p.fresh_cross_lookback > 0:
-        above = df["above_all_ma"].fillna(False)
+        if p.fresh_ma == "sma200":
+            above = (c > df["sma200"]).fillna(False)
+        else:
+            above = df["above_all_ma"].fillna(False)
         prior_above = above.shift(1).rolling(p.fresh_min_days_below,
                                              min_periods=p.fresh_min_days_below).sum()
         cross = above & above.shift(1).notna() & (prior_above <= p.fresh_max_prior_above)
