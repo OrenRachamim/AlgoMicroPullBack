@@ -102,3 +102,34 @@ def test_fresh_ma_sma200_mode():
                      min_pullback_pct=0.005, max_pullback_pct=0.05)
     setup = compute_setup(df, p)
     assert setup.any(), "sma200-only cross should qualify the breakout stock"
+
+
+def test_retake_entry_triggers_on_peak_recovery():
+    """Retake mode: entry only when price takes out the pre-pullback peak."""
+    import numpy as np
+    from micro_pullback.backtest import BacktestConfig, run_backtest
+    from micro_pullback.indicators import add_indicators
+    # base below MAs, breakout rally, small 2-day dip, slow recovery that
+    # crosses the pre-dip peak on the 3rd recovery day
+    n_below, n_up = 300, 40
+    base = np.linspace(150, 100, n_below)
+    up = np.linspace(102, 140, n_up)
+    top = up[-1]
+    dip = top * np.array([0.99, 0.975])
+    rec = top * np.array([0.985, 0.995, 1.02, 1.04, 1.05, 1.06])
+    closes = np.concatenate([base, up, dip, rec])
+    prev = np.r_[closes[0], closes[:-1]]
+    rng = pd.bdate_range("2022-01-03", periods=len(closes))
+    df = pd.DataFrame({"open": prev,
+                       "high": np.maximum(closes, prev) * 1.004,
+                       "low": np.minimum(closes, prev) * 0.996,
+                       "close": closes, "volume": 5_000_000}, index=rng)
+    data = {"RTK": add_indicators(df)}
+    p = fresh_params(fresh_ma="sma200", entry_mode="retake",
+                     pullback_within_days=5, rsi_entry_max=101.0,
+                     min_pullback_pct=0.005, max_pullback_pct=0.04)
+    trades, _, _ = run_backtest(data, p, BacktestConfig())
+    assert trades, "recovery through the peak should trigger a retake entry"
+    tr = trades[0]
+    peak_before = data["RTK"].loc[:tr.entry_date, "res10"].iloc[-1]
+    assert tr.entry_price >= peak_before, "fill must be at/above the retaken peak"

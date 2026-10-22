@@ -224,7 +224,8 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
                     continue
                 prev = df.iloc[prev_i]
                 row = df.iloc[i]
-                fill = entry_price_for(row, float(prev["high"]), params)
+                trigger = float(prev["res10"]) if params.entry_mode == "retake" else float(prev["high"])
+                fill = entry_price_for(row, trigger, params)
                 if fill is None:
                     continue
                 rank_key = prev[params.rsi_entry_col] if cfg.rank_by == "rsi" else -prev["ret63"]

@@ -392,3 +392,23 @@ VARIANTS["h2"] = replace(VARIANTS["final"], name="sma200_deep",
 VARIANTS["h3"] = replace(VARIANTS["final"], name="sma200_shallow20",
                          fresh_ma="sma200", rsi_entry_max=20.0,
                          min_pullback_pct=0.005, max_pullback_pct=0.05)
+
+# ---------------------------------------------------------------------------
+# j-family — the "retake" pattern (user spec): long time below SMA200, price
+# crosses above it, a SMALL pullback (0.5%-4%, no RSI depth required), and the
+# entry fires only when price comes back and takes out the pre-pullback peak
+# (10-day high of highs). Confirmation entry, not dip-buying.
+# ---------------------------------------------------------------------------
+_J = replace(VARIANTS["final"],
+             fresh_ma="sma200",
+             entry_mode="retake", pullback_within_days=5,
+             rsi_entry_max=101.0,          # structure, not oscillator depth
+             min_down_days=1,
+             min_pullback_pct=0.005, max_pullback_pct=0.04,
+             require_above_support=True)
+
+VARIANTS["j1"] = replace(_J, name="retake_sma200")
+# j2 — same pattern but the cross must clear ALL MAs (the official regime)
+VARIANTS["j2"] = replace(_J, name="retake_allma", fresh_ma="all")
+# j3 — j1 allowing a slightly deeper pullback (up to 7%)
+VARIANTS["j3"] = replace(_J, name="retake_sma200_7pct", max_pullback_pct=0.07)

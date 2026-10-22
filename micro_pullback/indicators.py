@@ -101,6 +101,7 @@ def add_indicators(df: pd.DataFrame) -> pd.DataFrame:
     out["hi20"] = rolling_high(c, 20).shift(1)
     out["support20"] = support_level(out, 20)
     out["resistance20"] = resistance_level(out, 20)
+    out["res10"] = out["high"].rolling(10, min_periods=10).max().shift(1)  # pre-pullback peak (10d high of highs)
     out["hi252"] = rolling_high(c, 252).shift(1)  # 52-week closing high as of yesterday
     out["ret63"] = c.pct_change(63)              # ~3-month momentum
     out["ret126"] = c.pct_change(126)            # ~6-month momentum

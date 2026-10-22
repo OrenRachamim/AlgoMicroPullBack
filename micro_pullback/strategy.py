@@ -55,8 +55,9 @@ class StrategyParams:
     max_dist_ema20: float = 0.03             # close within 3% of / above EMA20 - support zone
 
     # --- entry ---
-    entry_mode: str = "breakout"             # "breakout": next day takes out prev high | "open": next open | "moc": signal day's close
+    entry_mode: str = "breakout"             # "breakout": next day takes out prev high | "open": next open | "moc": signal day's close | "retake": price retakes the pre-pullback peak
     breakout_buffer: float = 0.001           # 0.1% above previous high
+    pullback_within_days: int = 0            # >0: pullback may have occurred up to N days ago (retake pattern)
 
     # --- exit ---
     stop_atr_mult: float = 1.5               # stop = entry - mult*ATR (0 disables)
@@ -141,17 +142,28 @@ def compute_setup(df: pd.DataFrame, p: StrategyParams) -> pd.Series:
         fresh = cross.rolling(p.fresh_cross_lookback, min_periods=1).max().astype(bool)
         ok &= fresh
 
-    # pullback
-    ok &= df[p.rsi_entry_col] <= p.rsi_entry_max
+    # pullback — collected separately so it can be applied either same-day
+    # (default) or "happened within the last N days" (retake pattern).
+    pull = pd.Series(True, index=df.index)
+    pull &= df[p.rsi_entry_col] <= p.rsi_entry_max
     if p.min_down_days > 0:
-        ok &= consecutive_down_days(c) >= p.min_down_days
+        pull &= consecutive_down_days(c) >= p.min_down_days
     drawdown_from_hi = 1.0 - c / df["hi20"]
-    ok &= drawdown_from_hi.between(p.min_pullback_pct, p.max_pullback_pct)
+    pull &= drawdown_from_hi.between(p.min_pullback_pct, p.max_pullback_pct)
     if p.require_above_support:
-        ok &= c > df["support20"]
+        pull &= c > df["support20"]
     if p.max_dist_ema20 is not None:
         # close not too far below EMA20: sitting on/near dynamic support
-        ok &= c >= df["ema20"] * (1.0 - p.max_dist_ema20)
+        pull &= c >= df["ema20"] * (1.0 - p.max_dist_ema20)
+
+    if p.pullback_within_days > 0:
+        # retake pattern: a qualifying pullback occurred within the last N
+        # days and the pre-pullback peak (10d high of highs) has not been
+        # retaken yet at today's close — the entry trigger is that peak.
+        recent_pull = pull.rolling(p.pullback_within_days, min_periods=1).max().astype(bool)
+        ok &= recent_pull & (c < df["res10"]) & df["res10"].notna()
+    else:
+        ok &= pull
 
     # volatility guard: avoid falling knives / crash-regime names
     if p.max_atr_pct > 0:
@@ -187,6 +199,8 @@ def entry_price_for(df_row: pd.Series, prev_high: float, p: StrategyParams) -> f
     o, h = df_row["open"], df_row["high"]
     if p.entry_mode == "open":
         return float(o)
+    # "breakout" and "retake" share the same mechanics; only the trigger level
+    # differs (previous day's high vs the pre-pullback peak, chosen by caller).
     trigger = prev_high * (1.0 + p.breakout_buffer)
     if h >= trigger:
         return float(max(o, trigger))
