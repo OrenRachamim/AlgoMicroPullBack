@@ -1,0 +1,76 @@
+{
+ "start": "2023-10-19",
+ "end": "2026-10-19",
+ "rows": [
+  {
+   "zone": "all_days",
+   "n": 371260,
+   "p_green_pct": 50.8,
+   "avg_intraday_pct": 0.02,
+   "med_intraday_pct": 0.029,
+   "hybrid5_avg_pct": 0.218,
+   "hybrid21_avg_pct": 0.957,
+   "fallback_book_avg_pct": -0.802
+  },
+  {
+   "zone": "fresh_all",
+   "n": 15072,
+   "p_green_pct": 54.5,
+   "avg_intraday_pct": 0.211,
+   "med_intraday_pct": 0.137,
+   "hybrid5_avg_pct": 0.334,
+   "hybrid21_avg_pct": 0.528,
+   "fallback_book_avg_pct": -0.727
+  },
+  {
+   "zone": "deep_dip",
+   "n": 688,
+   "p_green_pct": 53.3,
+   "avg_intraday_pct": 0.075,
+   "med_intraday_pct": 0.104,
+   "hybrid5_avg_pct": 0.526,
+   "hybrid21_avg_pct": 0.916,
+   "fallback_book_avg_pct": -0.111
+  },
+  {
+   "zone": "deep_gapdown",
+   "n": 314,
+   "p_green_pct": 52.2,
+   "avg_intraday_pct": -0.035,
+   "med_intraday_pct": 0.068,
+   "hybrid5_avg_pct": 0.478,
+   "hybrid21_avg_pct": 0.815,
+   "fallback_book_avg_pct": -0.031
+  },
+  {
+   "zone": "deep_gapup",
+   "n": 374,
+   "p_green_pct": 54.3,
+   "avg_intraday_pct": 0.167,
+   "med_intraday_pct": 0.132,
+   "hybrid5_avg_pct": 0.567,
+   "hybrid21_avg_pct": 1.0,
+   "fallback_book_avg_pct": -0.181
+  },
+  {
+   "zone": "down3",
+   "n": 38106,
+   "p_green_pct": 49.9,
+   "avg_intraday_pct": 0.002,
+   "med_intraday_pct": 0.0,
+   "hybrid5_avg_pct": 0.293,
+   "hybrid21_avg_pct": 1.157,
+   "fallback_book_avg_pct": -0.648
+  },
+  {
+   "zone": "post_cross",
+   "n": 2638,
+   "p_green_pct": 49.2,
+   "avg_intraday_pct": -0.005,
+   "med_intraday_pct": -0.018,
+   "hybrid5_avg_pct": 0.08,
+   "hybrid21_avg_pct": 0.389,
+   "fallback_book_avg_pct": -1.233
+  }
+ ]
+}
