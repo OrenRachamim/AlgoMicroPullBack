@@ -1116,5 +1116,48 @@
     }
    }
   ]
+ },
+ {
+  "start": "2018-01-02",
+  "end": "2026-10-19",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "final:final_fresh_breakout",
+    "n_trades": 924,
+    "total_return_pct": 28.91,
+    "cagr_pct": 2.94,
+    "max_drawdown_pct": -20.2,
+    "sharpe": 0.34,
+    "win_rate_pct": 62.1,
+    "avg_trade_pct": 0.156,
+    "profit_factor": 1.14,
+    "avg_hold_days": 2.9,
+    "exit_reasons": {
+     "rsi_strength": 682,
+     "time": 207,
+     "earnings": 35
+    }
+   },
+   {
+    "variant": "o1:deep_dip_at_sma20",
+    "n_trades": 980,
+    "total_return_pct": -7.75,
+    "cagr_pct": -0.92,
+    "max_drawdown_pct": -33.09,
+    "sharpe": -0.02,
+    "win_rate_pct": 61.0,
+    "avg_trade_pct": -0.018,
+    "profit_factor": 0.97,
+    "avg_hold_days": 3.0,
+    "exit_reasons": {
+     "rsi_strength": 705,
+     "time": 242,
+     "earnings": 33
+    }
+   }
+  ]
  }
 ]

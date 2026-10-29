@@ -61,7 +61,8 @@ def main() -> None:
     regime, spy = spy_regime(END)
     calendar = pd.DatetimeIndex(sorted(set().union(*[df.index for df in data.values()])))
     print("Loading earnings (SEC EDGAR) ...")
-    earnings = load_earnings_risk(list(data.keys()), calendar)
+    earnings = load_earnings_risk(list(data.keys()), calendar,
+                                  buffer_before=0, buffer_after=0)
 
     base_params = VARIANTS["final"]
     base_cfg = BacktestConfig(initial_capital=CAPITAL, max_positions=5, rank_by="momentum")
