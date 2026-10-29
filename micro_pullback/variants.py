@@ -500,3 +500,10 @@ VARIANTS["n4"] = replace(_N, name="retest_sma20_hold10", ma_touch_col="sma20",
 # the official trigger's per-trade economics.
 VARIANTS["o1"] = replace(VARIANTS["final"], name="deep_dip_at_sma20",
                          ma_touch_col="sma20")
+
+# n5/n6 — user refinement: the SMA20 touch must occur while the close still
+# holds ABOVE SMA100 and SMA200 (structure intact), filtering broken retests.
+VARIANTS["n5"] = replace(VARIANTS["n2"], name="retest_t5_floor",
+                         ma_touch_floor="both")
+VARIANTS["n6"] = replace(VARIANTS["n4"], name="retest_hold10_floor",
+                         ma_touch_floor="both")

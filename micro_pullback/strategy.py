@@ -85,6 +85,7 @@ class StrategyParams:
     # when price turns back UP through the previous day's high (the reclaim).
     ma_touch_col: str = ""                   # e.g. "sma20" or "sma50"
     ma_touch_tol: float = 0.01               # low <= MA*(1+tol) counts as a touch
+    ma_touch_floor: str = ""                 # "sma100" | "sma200" | "both": close must also hold above these on the touch day
 
     max_atr_pct: float = 0.0                 # skip stocks whose ATR14/close exceeds this (0 disables)
 
@@ -163,6 +164,10 @@ def compute_setup(df: pd.DataFrame, p: StrategyParams) -> pd.Series:
         pull &= ma.notna()
         if p.rsi_entry_max < 100.0:  # optional confluence: deep dip AT the MA
             pull &= df[p.rsi_entry_col] <= p.rsi_entry_max
+        if p.ma_touch_floor in ("sma100", "both"):
+            pull &= c > df["sma100"]
+        if p.ma_touch_floor in ("sma200", "both"):
+            pull &= c > df["sma200"]
     else:
         pull &= df[p.rsi_entry_col] <= p.rsi_entry_max
         if p.min_down_days > 0:
