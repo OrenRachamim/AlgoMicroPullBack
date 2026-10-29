@@ -81,13 +81,20 @@ BUY-STOP מחר:  trigger = high[t] * 1.001
 (שורת "אין היום") וגם כש-SPY מתחת ל-SMA200 ("אין כניסות — משטר שלילי").
 פורמט ההודעה: ראו `format_message` ב-`daily_scan.py`. ‏JSON נשמר ללוג.
 
-### 5.2 ערוצי שליחה
-| ערוץ | מימוש | קונפיגורציה (env) |
-|---|---|---|
-| Telegram | ‏Bot API: ‏`api.telegram.org/bot{token}/sendMessage` | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` |
-| Email | ‏SMTP + STARTTLS (‏Gmail: ‏smtp.gmail.com עם App Password) | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `ALERT_EMAIL_TO` |
+### 5.2 ערוצי שליחה — Val Town relay
+שני הערוצים נשלחים בקריאת POST אחת ל-val הקיים `orenbot/telegram-notify`:
+```
+POST https://orenbot--a8852f06893911f1b1a21607ee4eb77e.web.val.run
+{ "text": <ההודעה>, "secret": <VALTOWN_NOTIFY_SECRET>, "email_subject": <נושא> }
+```
+- ‏Telegram: ה-val שולח `sendMessage` (פיצול ל-≤4000 תווים). פרטי הבוט
+  (`TELEGRAM_TOKEN`, `TELEGRAM_CHAT_ID`) שמורים בסביבת ה-val בלבד.
+- ‏Email: ה-val שולח דרך ‏`std/email` של Val Town לכתובת בעל החשבון
+  (גוף RTL ב-HTML). אין SMTP ואין סיסמאות מייל בצד הסורק.
+- אימות: ‏env ‏`VALTOWN_NOTIFY_SECRET` בצד הסורק = ערך ‏`RETEST_TOKEN`
+  בסביבת ה-val. **אסור לשמור את הטוקן במאגר (המאגר ציבורי).**
 
-חסר credentials ← מדלגים על הערוץ ומדווחים, לא נכשלים. כשל שליחה ← ‏retry
+חסר secret ← מדלגים על השליחה ומדווחים, לא נכשלים. כשל שליחה ← ‏retry
 אחד אחרי 60 שניות, ואז לוג שגיאה.
 
 ### 5.3 התראות יציאה (לפוזיציות שהמשתמש מנהל ברשימה)
@@ -112,7 +119,8 @@ BUY-STOP מחר:  trigger = high[t] * 1.001
 3. דוח מחר ← המועמדת נפסלת; לפוזיציה פתוחה ← התראת מכירה היום.
 4. רגרסיה מול ה-backtest: ‏SLB חייבת להיות מועמדת בסגירת ‏29.12.2025
    (כניסה בפועל 30.12 ב-37.56$); ‏CDNS בסגירת ‏19.5.2026.
-5. שליחה: ‏mock לשני הערוצים; ודא שההודעה כוללת את תקציר האסטרטגיה.
+5. שליחה: ‏mock ל-relay (תגובת `{ok, emailed}`); ודא שההודעה כוללת את
+   תקציר האסטרטגיה ושקריאה בלי secret מדלגת ולא נכשלת.
 
 ## 8. מחוץ לתחולה
 ביצוע עסקאות · מסחר תוך-יומי · ניהול תיק אוטומטי · האסטרטגיות ההיסטוריות

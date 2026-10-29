@@ -8,11 +8,12 @@ tomorrow: trigger = today's high * 1.001. Candidates are ranked by 63-day
 momentum; the SPY>SMA200 regime and the earnings filter are applied exactly
 as in the backtest.
 
-Delivery (each optional, enabled by env vars):
-  Telegram:  TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
-  Email:     SMTP_HOST, SMTP_PORT (587), SMTP_USER, SMTP_PASS, ALERT_EMAIL_TO
-             (for Gmail: smtp.gmail.com + app password)
-Without credentials the scan still runs and prints the list.
+Delivery goes through the owner's existing Val Town relay
+(orenbot/telegram-notify): one POST sends the message to Telegram and, via
+Val Town's std/email, the same text as an email to the account owner's
+address. The Telegram credentials live only in the val's environment.
+Auth: set VALTOWN_NOTIFY_SECRET (the RETEST_TOKEN value configured in the
+val). Without it the scan still runs and prints the list.
 
 Usage:
   python daily_scan.py                 # scan as of the latest close
@@ -25,9 +26,6 @@ import argparse
 import datetime as dt
 import json
 import os
-import smtplib
-import ssl
-from email.mime.text import MIMEText
 
 import pandas as pd
 import requests
@@ -40,6 +38,10 @@ from micro_pullback.universe import get_broad_universe
 from micro_pullback.variants import VARIANTS
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
+
+# Val Town relay (orenbot/telegram-notify): POST {text, secret, email_subject}
+# -> Telegram message + email to the val owner's address.
+RELAY_URL = "https://orenbot--a8852f06893911f1b1a21607ee4eb77e.web.val.run"
 
 STRATEGY_SUMMARY_HE = (
     "האסטרטגיה בקצרה: מניה שחצתה לאחרונה מעל כל הממוצעים הנעים אחרי חצי שנה "
@@ -122,28 +124,19 @@ def format_message(res: dict) -> str:
     return "\n".join(lines)
 
 
-def send_telegram(text: str) -> bool:
-    token, chat = os.getenv("TELEGRAM_BOT_TOKEN"), os.getenv("TELEGRAM_CHAT_ID")
-    if not token or not chat:
-        return False
-    r = requests.post(f"https://api.telegram.org/bot{token}/sendMessage",
-                      json={"chat_id": chat, "text": text}, timeout=30)
-    r.raise_for_status()
-    return True
-
-
-def send_email(text: str, subject: str) -> bool:
-    host, user, pw, to = (os.getenv("SMTP_HOST"), os.getenv("SMTP_USER"),
-                          os.getenv("SMTP_PASS"), os.getenv("ALERT_EMAIL_TO"))
-    if not all([host, user, pw, to]):
-        return False
-    msg = MIMEText(text, "plain", "utf-8")
-    msg["Subject"], msg["From"], msg["To"] = subject, user, to
-    with smtplib.SMTP(host, int(os.getenv("SMTP_PORT", "587")), timeout=30) as s:
-        s.starttls(context=ssl.create_default_context())
-        s.login(user, pw)
-        s.sendmail(user, [to], msg.as_string())
-    return True
+def send_via_relay(text: str, subject: str) -> dict:
+    """Send through the Val Town relay: Telegram + email in one call."""
+    secret = os.getenv("VALTOWN_NOTIFY_SECRET")
+    if not secret:
+        return {"telegram": False, "email": False, "note": "no VALTOWN_NOTIFY_SECRET"}
+    r = requests.post(RELAY_URL,
+                      json={"text": text, "secret": secret, "email_subject": subject},
+                      timeout=60)
+    body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {}
+    if r.status_code != 200 or not body.get("ok"):
+        raise RuntimeError(f"relay failed ({r.status_code}): {body}")
+    return {"telegram": True, "email": bool(body.get("emailed")),
+            "note": body.get("email_error") or ""}
 
 
 def main() -> None:
@@ -161,11 +154,12 @@ def main() -> None:
         json.dump(res, f, indent=1, ensure_ascii=False)
 
     if not args.no_send:
-        tg = send_telegram(text)
-        em = send_email(text, f"סריקת ריטסט {res['scan_date']}: "
-                              f"{len(res['candidates'])} מועמדות")
-        print(f"\n[delivery] telegram: {'sent' if tg else 'skipped (no creds)'}, "
-              f"email: {'sent' if em else 'skipped (no creds)'}")
+        subject = (f"סריקת ריטסט {res['scan_date']}: "
+                   f"{len(res['candidates'])} מועמדות")
+        st = send_via_relay(text, subject)
+        print(f"\n[delivery] telegram: {'sent' if st['telegram'] else 'skipped'}, "
+              f"email: {'sent' if st['email'] else 'skipped'}"
+              + (f" ({st['note']})" if st.get("note") else ""))
 
 
 if __name__ == "__main__":
