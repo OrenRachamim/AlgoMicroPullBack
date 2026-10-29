@@ -531,3 +531,18 @@ VARIANTS["n14"] = replace(VARIANTS["n6"], name="retest_stop_ma20_5",
                           stop_below_ma="sma20", stop_below_ma_tol=0.05)
 VARIANTS["n15"] = replace(VARIANTS["n6"], name="retest_stop_ma20_7",
                           stop_below_ma="sma20", stop_below_ma_tol=0.07)
+
+# ---------------------------------------------------------------------------
+# OFFICIAL strategy (user decision, round 4): the SMA20-RETEST pattern.
+#   Universe state: fresh cross above ALL MAs within the last 60 trading days
+#                   after >=6 months below them.
+#   Setup:  the day's low touches SMA20 (±1%) while the close still holds
+#           above SMA100 and SMA200 (structure intact).
+#   Entry:  next day, on a break of the touch day's high (+0.1%).
+#   Exit:   close of the 10th trading day. NO price stops of any kind —
+#           six stop types were tested and all degraded results.
+# The previous official (deep-dip) config remains available as "dip".
+# Run with: --regime spy200 --rank momentum --max-positions 5 --warmup-days 700
+# ---------------------------------------------------------------------------
+VARIANTS["dip"] = replace(VARIANTS["final"], name="deep_dip_strategy")
+VARIANTS["final"] = replace(VARIANTS["n6"], name="final_retest")

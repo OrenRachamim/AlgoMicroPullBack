@@ -1,0 +1,14 @@
+{
+ "scan_date": "2026-10-16",
+ "spy_regime_ok": true,
+ "candidates": [
+  {
+   "ticker": "MSFT",
+   "close": 529.05,
+   "trigger": 544.36,
+   "sma20": 520.22,
+   "ret63_pct": 31.8,
+   "exit_plan": "close of 10th trading day"
+  }
+ ]
+}
