@@ -163,3 +163,30 @@ def test_one_trade_per_cycle():
     assert len(many) >= 2, "sanity: without the flag there are repeat trades"
     assert len(once) == 1, "with the flag only the first trade of the cycle happens"
     assert once[0].entry_date == many[0].entry_date
+
+
+def test_ma_retest_setup_and_entry():
+    """MA-retest: touch of SMA20 inside the fresh window + breakout reclaim."""
+    import numpy as np
+    from micro_pullback.backtest import BacktestConfig, run_backtest
+    from micro_pullback.indicators import add_indicators
+    # base below MAs -> breakout rally -> drift down to SMA20 -> reclaim up
+    n_below, n_up = 300, 35
+    base = np.linspace(150, 100, n_below)
+    up = np.linspace(102, 135, n_up)
+    top = up[-1]
+    drift = top * np.array([0.995, 0.985, 0.975, 0.968, 0.966])  # back to ~SMA20
+    rec = drift[-1] * np.linspace(1.015, 1.08, 6)
+    closes = np.concatenate([base, up, drift, rec])
+    prev = np.r_[closes[0], closes[:-1]]
+    rng = pd.bdate_range("2022-01-03", periods=len(closes))
+    df = pd.DataFrame({"open": prev,
+                       "high": np.maximum(closes, prev) * 1.004,
+                       "low": np.minimum(closes, prev) * 0.994,
+                       "close": closes, "volume": 5_000_000}, index=rng)
+    data = {"RTST": add_indicators(df)}
+    p = fresh_params(ma_touch_col="sma20", entry_mode="breakout",
+                     rsi_entry_max=101.0, min_down_days=0,
+                     require_rsi14_min=0.0, exit_rsi_min=0.0, max_hold_days=5)
+    trades, _, _ = run_backtest(data, p, BacktestConfig())
+    assert trades, "touch of SMA20 followed by reclaim should produce a trade"

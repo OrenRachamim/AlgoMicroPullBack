@@ -477,3 +477,20 @@ VARIANTS["m_small_rsi65t5"] = replace(_M200, name="m_small_rsi65t5",
 VARIANTS["m_retake_trail21"] = replace(_M200, name="m_retake_trail21",
                                        exit_rsi_min=0.0, trail_atr_mult=2.5,
                                        max_hold_days=21, **_ENTRIES["retake"])
+
+# ---------------------------------------------------------------------------
+# n-family — MA-retest pattern (user observation from the gallery): after the
+# cross, price rallies, comes back DOWN to the moving-average zone, and turns
+# back up. Touch day = low reaches the MA; entry = breakout of the touch
+# day's high (the reclaim). Short hold, no price stop ("very large stop").
+# ---------------------------------------------------------------------------
+_N = replace(VARIANTS["final"], entry_mode="breakout",
+             rsi_entry_max=101.0, min_down_days=0,
+             require_rsi14_min=0.0)
+
+VARIANTS["n1"] = replace(_N, name="retest_sma20", ma_touch_col="sma20")
+VARIANTS["n2"] = replace(_N, name="retest_sma20_t5", ma_touch_col="sma20",
+                         exit_rsi_min=0.0)
+VARIANTS["n3"] = replace(_N, name="retest_sma50", ma_touch_col="sma50")
+VARIANTS["n4"] = replace(_N, name="retest_sma20_hold10", ma_touch_col="sma20",
+                         exit_rsi_min=0.0, max_hold_days=10)

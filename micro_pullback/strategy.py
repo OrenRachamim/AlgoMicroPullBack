@@ -78,6 +78,14 @@ class StrategyParams:
     avoid_earnings: bool = True              # skip entries on earnings-risk days; exit before them
 
     # --- risk guards ---
+    # --- MA-retest pattern (0/"" disables) ---
+    # The pullback is defined as price coming back DOWN to a moving average
+    # (the day's low touches it within a tolerance) instead of by depth from
+    # the recent high. Pair with entry_mode="breakout" so the entry fires only
+    # when price turns back UP through the previous day's high (the reclaim).
+    ma_touch_col: str = ""                   # e.g. "sma20" or "sma50"
+    ma_touch_tol: float = 0.01               # low <= MA*(1+tol) counts as a touch
+
     max_atr_pct: float = 0.0                 # skip stocks whose ATR14/close exceeds this (0 disables)
 
     # --- liquidity / universe hygiene ---
@@ -146,16 +154,24 @@ def compute_setup(df: pd.DataFrame, p: StrategyParams) -> pd.Series:
     # pullback — collected separately so it can be applied either same-day
     # (default) or "happened within the last N days" (retake pattern).
     pull = pd.Series(True, index=df.index)
-    pull &= df[p.rsi_entry_col] <= p.rsi_entry_max
-    if p.min_down_days > 0:
-        pull &= consecutive_down_days(c) >= p.min_down_days
-    drawdown_from_hi = 1.0 - c / df["hi20"]
-    pull &= drawdown_from_hi.between(p.min_pullback_pct, p.max_pullback_pct)
-    if p.require_above_support:
-        pull &= c > df["support20"]
-    if p.max_dist_ema20 is not None:
-        # close not too far below EMA20: sitting on/near dynamic support
-        pull &= c >= df["ema20"] * (1.0 - p.max_dist_ema20)
+    if p.ma_touch_col:
+        # MA-retest: the day's low reaches the chosen MA (within tolerance)
+        # while the close holds above the slower structure (SMA50 zone).
+        ma = df[p.ma_touch_col]
+        pull &= df["low"] <= ma * (1.0 + p.ma_touch_tol)
+        pull &= c > df["sma50"] * 0.99
+        pull &= ma.notna()
+    else:
+        pull &= df[p.rsi_entry_col] <= p.rsi_entry_max
+        if p.min_down_days > 0:
+            pull &= consecutive_down_days(c) >= p.min_down_days
+        drawdown_from_hi = 1.0 - c / df["hi20"]
+        pull &= drawdown_from_hi.between(p.min_pullback_pct, p.max_pullback_pct)
+        if p.require_above_support:
+            pull &= c > df["support20"]
+        if p.max_dist_ema20 is not None:
+            # close not too far below EMA20: sitting on/near dynamic support
+            pull &= c >= df["ema20"] * (1.0 - p.max_dist_ema20)
 
     if p.pullback_within_days > 0:
         # retake pattern: a qualifying pullback occurred within the last N
