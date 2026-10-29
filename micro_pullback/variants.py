@@ -507,3 +507,10 @@ VARIANTS["n5"] = replace(VARIANTS["n2"], name="retest_t5_floor",
                          ma_touch_floor="both")
 VARIANTS["n6"] = replace(VARIANTS["n4"], name="retest_hold10_floor",
                          ma_touch_floor="both")
+
+# n7/n8 — user refinement #2: buy signal only while SMA20 itself slopes UP
+# (above its value 5 / 10 days ago). A retest of a falling SMA20 is skipped.
+VARIANTS["n7"] = replace(VARIANTS["n6"], name="retest_floor_rising5",
+                         rising_sma20_days=5)
+VARIANTS["n8"] = replace(VARIANTS["n6"], name="retest_floor_rising10",
+                         rising_sma20_days=10)

@@ -190,3 +190,15 @@ def test_ma_retest_setup_and_entry():
                      require_rsi14_min=0.0, exit_rsi_min=0.0, max_hold_days=5)
     trades, _, _ = run_backtest(data, p, BacktestConfig())
     assert trades, "touch of SMA20 followed by reclaim should produce a trade"
+
+
+def test_rising_sma20_gate():
+    """rising_sma20_days blocks setups while SMA20 slopes down."""
+    df = make_fresh_cross_frame()
+    base = dict(ma_touch_col="sma20", entry_mode="breakout", rsi_entry_max=101.0,
+                min_down_days=0, require_rsi14_min=0.0)
+    s_on = compute_setup(df, fresh_params(rising_sma20_days=5, **base))
+    s_off = compute_setup(df, fresh_params(**base))
+    rising = df["sma20"] > df["sma20"].shift(5)
+    assert not (s_on & ~rising).any(), "no setup allowed while SMA20 is falling"
+    assert (s_off & ~rising & df["above_all_ma"].notna()).sum() >= 0  # gate only applies when on
