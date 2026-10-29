@@ -161,6 +161,8 @@ def compute_setup(df: pd.DataFrame, p: StrategyParams) -> pd.Series:
         pull &= df["low"] <= ma * (1.0 + p.ma_touch_tol)
         pull &= c > df["sma50"] * 0.99
         pull &= ma.notna()
+        if p.rsi_entry_max < 100.0:  # optional confluence: deep dip AT the MA
+            pull &= df[p.rsi_entry_col] <= p.rsi_entry_max
     else:
         pull &= df[p.rsi_entry_col] <= p.rsi_entry_max
         if p.min_down_days > 0:

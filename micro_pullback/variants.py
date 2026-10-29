@@ -494,3 +494,9 @@ VARIANTS["n2"] = replace(_N, name="retest_sma20_t5", ma_touch_col="sma20",
 VARIANTS["n3"] = replace(_N, name="retest_sma50", ma_touch_col="sma50")
 VARIANTS["n4"] = replace(_N, name="retest_sma20_hold10", ma_touch_col="sma20",
                          exit_rsi_min=0.0, max_hold_days=10)
+
+# o1 — confluence: the official deep dip (RSI2<10) occurring AT the SMA20
+# zone (low touches it). Tests whether the 73%-reclaim support zone improves
+# the official trigger's per-trade economics.
+VARIANTS["o1"] = replace(VARIANTS["final"], name="deep_dip_at_sma20",
+                         ma_touch_col="sma20")
