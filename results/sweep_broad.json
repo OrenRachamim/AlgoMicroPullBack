@@ -1365,5 +1365,31 @@
     }
    }
   ]
+ },
+ {
+  "start": "2018-01-02",
+  "end": "2026-10-19",
+  "max_positions": 5,
+  "regime": "spy200",
+  "rank": "momentum",
+  "rows": [
+   {
+    "variant": "n12:retest_stop_ma50",
+    "n_trades": 909,
+    "total_return_pct": -15.54,
+    "cagr_pct": -1.91,
+    "max_drawdown_pct": -38.99,
+    "sharpe": -0.04,
+    "win_rate_pct": 46.6,
+    "avg_trade_pct": -0.068,
+    "profit_factor": 0.95,
+    "avg_hold_days": 8.0,
+    "exit_reasons": {
+     "time": 539,
+     "ma_stop": 282,
+     "earnings": 88
+    }
+   }
+  ]
  }
 ]
