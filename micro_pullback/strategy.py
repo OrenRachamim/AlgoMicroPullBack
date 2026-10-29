@@ -86,7 +86,6 @@ class StrategyParams:
     ma_touch_col: str = ""                   # e.g. "sma20" or "sma50"
     ma_touch_tol: float = 0.01               # low <= MA*(1+tol) counts as a touch
     ma_touch_floor: str = ""                 # "sma100" | "sma200" | "both": close must also hold above these on the touch day
-    rising_sma20_days: int = 0               # >0: SMA20 must be HIGHER than it was N days ago (buy only while the line slopes up)
 
     max_atr_pct: float = 0.0                 # skip stocks whose ATR14/close exceeds this (0 disables)
 
@@ -126,8 +125,6 @@ def compute_setup(df: pd.DataFrame, p: StrategyParams) -> pd.Series:
         ok &= df["sma50"] > df["sma100"]
     if p.require_rising_sma50:
         ok &= df["sma50"] > df["sma50"].shift(10)
-    if p.rising_sma20_days > 0:
-        ok &= df["sma20"] > df["sma20"].shift(p.rising_sma20_days)
     if p.min_ret63 > 0:
         ok &= df["ret63"] >= p.min_ret63
     if p.macd_mode == "line_positive":
