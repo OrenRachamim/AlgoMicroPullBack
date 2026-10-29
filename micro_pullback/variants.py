@@ -523,3 +523,11 @@ VARIANTS["n11"] = replace(VARIANTS["n6"], name="retest_stop_ma20_h15",
 # the entry zone), not the SMA20 the entry hugs.
 VARIANTS["n12"] = replace(VARIANTS["n6"], name="retest_stop_ma50",
                           stop_below_ma="sma50")
+
+# n13-n15 — deeper SMA20 stop tolerances: exit only on a close 3/5/7% below.
+VARIANTS["n13"] = replace(VARIANTS["n6"], name="retest_stop_ma20_3",
+                          stop_below_ma="sma20", stop_below_ma_tol=0.03)
+VARIANTS["n14"] = replace(VARIANTS["n6"], name="retest_stop_ma20_5",
+                          stop_below_ma="sma20", stop_below_ma_tol=0.05)
+VARIANTS["n15"] = replace(VARIANTS["n6"], name="retest_stop_ma20_7",
+                          stop_below_ma="sma20", stop_below_ma_tol=0.07)
