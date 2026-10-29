@@ -507,3 +507,14 @@ VARIANTS["n5"] = replace(VARIANTS["n2"], name="retest_t5_floor",
                          ma_touch_floor="both")
 VARIANTS["n6"] = replace(VARIANTS["n4"], name="retest_hold10_floor",
                          ma_touch_floor="both")
+
+# n9/n10 — user refinement #3: after entry, a close back BELOW the SMA20 is
+# the stop (the reclaim failed). n9 strict; n10 with 1% noise tolerance;
+# n11 pairs the stop with a longer leash (15 days) since losers are now cut.
+VARIANTS["n9"] = replace(VARIANTS["n6"], name="retest_stop_ma20",
+                         stop_below_ma="sma20")
+VARIANTS["n10"] = replace(VARIANTS["n6"], name="retest_stop_ma20_tol1",
+                          stop_below_ma="sma20", stop_below_ma_tol=0.01)
+VARIANTS["n11"] = replace(VARIANTS["n6"], name="retest_stop_ma20_h15",
+                          stop_below_ma="sma20", stop_below_ma_tol=0.01,
+                          max_hold_days=15)

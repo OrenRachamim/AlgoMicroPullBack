@@ -69,6 +69,8 @@ class StrategyParams:
     exit_rsi_col: str = "rsi3"
     exit_rsi_min: float = 75.0               # strength exit when short RSI overbought (0 disables)
     max_hold_days: int = 5                   # time stop (trading days after entry)
+    stop_below_ma: str = ""                  # e.g. "sma20": exit at close when close drops below this MA (pattern-failure stop)
+    stop_below_ma_tol: float = 0.0           # tolerance: exit only when close < MA*(1-tol)
     trail_atr_mult: float = 0.0              # chandelier trail: highest-high-since-entry - mult*ATR (0 disables)
     trail_pct: float = 0.0                   # trail: peak close since entry * (1-pct) (0 disables)
     breakeven_atr: float = 0.0               # once high >= entry + X*ATR, raise stop to entry (0 disables)

@@ -168,6 +168,9 @@ def run_backtest(data: dict[str, pd.DataFrame], params: StrategyParams,
                 reason = "target"
             elif params.stop_close_pct > 0 and c <= pos.entry_price * (1.0 - params.stop_close_pct):
                 exit_price, reason = c, "close_stop"
+            elif params.stop_below_ma and np.isfinite(row[params.stop_below_ma]) \
+                    and c < row[params.stop_below_ma] * (1.0 - params.stop_below_ma_tol):
+                exit_price, reason = c, "ma_stop"
             elif params.avoid_earnings and earnings is not None and i + 1 < len(df) \
                     and df.index[i + 1] in earnings.get(t, ()):
                 exit_price, reason = c, "earnings"

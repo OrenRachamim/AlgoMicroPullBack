@@ -191,3 +191,33 @@ def test_ma_retest_setup_and_entry():
     trades, _, _ = run_backtest(data, p, BacktestConfig())
     assert trades, "touch of SMA20 followed by reclaim should produce a trade"
 
+
+def test_stop_below_ma_exits_on_break():
+    """stop_below_ma closes the position when price closes back below the MA."""
+    import numpy as np
+    from micro_pullback.backtest import BacktestConfig, run_backtest
+    from micro_pullback.indicators import add_indicators
+    # breakout rally -> touch SMA20 -> reclaim (entry) -> break back below
+    n_below, n_up = 300, 35
+    base = np.linspace(150, 100, n_below)
+    up = np.linspace(102, 135, n_up)
+    top = up[-1]
+    drift = top * np.array([0.995, 0.985, 0.975, 0.968, 0.966])
+    rec = drift[-1] * np.array([1.02, 1.03])          # reclaim -> entry fires
+    brk = rec[-1] * np.array([0.97, 0.94, 0.92, 0.9]) # break below SMA20
+    closes = np.concatenate([base, up, drift, rec, brk])
+    prev = np.r_[closes[0], closes[:-1]]
+    rng = pd.bdate_range("2022-01-03", periods=len(closes))
+    df = pd.DataFrame({"open": prev,
+                       "high": np.maximum(closes, prev) * 1.004,
+                       "low": np.minimum(closes, prev) * 0.994,
+                       "close": closes, "volume": 5_000_000}, index=rng)
+    data = {"MST": add_indicators(df)}
+    p = fresh_params(ma_touch_col="sma20", entry_mode="breakout",
+                     rsi_entry_max=101.0, min_down_days=0, require_rsi14_min=0.0,
+                     exit_rsi_min=0.0, max_hold_days=30, stop_below_ma="sma20")
+    trades, _, _ = run_backtest(data, p, BacktestConfig())
+    assert trades and trades[0].exit_reason == "ma_stop"
+    df2 = data["MST"]
+    xi = df2.index.get_loc(trades[0].exit_date)
+    assert df2["close"].iloc[xi] < df2["sma20"].iloc[xi]
