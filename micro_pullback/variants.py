@@ -518,3 +518,8 @@ VARIANTS["n10"] = replace(VARIANTS["n6"], name="retest_stop_ma20_tol1",
 VARIANTS["n11"] = replace(VARIANTS["n6"], name="retest_stop_ma20_h15",
                           stop_below_ma="sma20", stop_below_ma_tol=0.01,
                           max_hold_days=15)
+
+# n12 — the structural version: stop only on a close below SMA50 (far from
+# the entry zone), not the SMA20 the entry hugs.
+VARIANTS["n12"] = replace(VARIANTS["n6"], name="retest_stop_ma50",
+                          stop_below_ma="sma50")
