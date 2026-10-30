@@ -95,6 +95,7 @@ def build_candidates(as_of: str | None = None, universe_limit: int = 600):
                 "sma20": round(float(row["sma20"]), 2),
                 "ret63_pct": round(100 * float(row["ret63"]), 1),
                 "exit_plan": "close of 10th trading day",
+                "tradingview": f"https://www.tradingview.com/chart/?symbol={t}",
             })
         candidates.sort(key=lambda c: -c["ret63_pct"])
     return {
@@ -116,6 +117,7 @@ def format_message(res: dict) -> str:
             lines.append(f"{i}. {c['ticker']}: טריגר {c['trigger']}$ "
                          f"(סגירה {c['close']}$, SMA20 {c['sma20']}$, "
                          f"מומנטום {c['ret63_pct']:+.0f}%)")
+            lines.append(f"   📈 https://www.tradingview.com/chart/?symbol={c['ticker']}")
         if len(res["candidates"]) > 10:
             lines.append(f"...ועוד {len(res['candidates']) - 10}")
         lines.append("")
