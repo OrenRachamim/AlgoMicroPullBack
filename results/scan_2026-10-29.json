@@ -1,0 +1,51 @@
+{
+ "scan_date": "2026-10-29",
+ "spy_regime_ok": true,
+ "candidates": [
+  {
+   "ticker": "PLTR",
+   "close": 196.42,
+   "trigger": 198.71,
+   "sma20": 197.48,
+   "ret63_pct": 59.6,
+   "exit_plan": "close of 10th trading day",
+   "tradingview": "https://www.tradingview.com/chart/?symbol=PLTR"
+  },
+  {
+   "ticker": "VEEV",
+   "close": 310.34,
+   "trigger": 315.56,
+   "sma20": 304.17,
+   "ret63_pct": 52.3,
+   "exit_plan": "close of 10th trading day",
+   "tradingview": "https://www.tradingview.com/chart/?symbol=VEEV"
+  },
+  {
+   "ticker": "WDAY",
+   "close": 195.46,
+   "trigger": 200.28,
+   "sma20": 195.33,
+   "ret63_pct": 21.9,
+   "exit_plan": "close of 10th trading day",
+   "tradingview": "https://www.tradingview.com/chart/?symbol=WDAY"
+  },
+  {
+   "ticker": "DIS",
+   "close": 110.91,
+   "trigger": 111.16,
+   "sma20": 108.81,
+   "ret63_pct": 15.3,
+   "exit_plan": "close of 10th trading day",
+   "tradingview": "https://www.tradingview.com/chart/?symbol=DIS"
+  },
+  {
+   "ticker": "ADSK",
+   "close": 241.73,
+   "trigger": 242.3,
+   "sma20": 238.15,
+   "ret63_pct": 3.2,
+   "exit_plan": "close of 10th trading day",
+   "tradingview": "https://www.tradingview.com/chart/?symbol=ADSK"
+  }
+ ]
+}
