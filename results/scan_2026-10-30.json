@@ -1,0 +1,33 @@
+{
+ "scan_date": "2026-10-30",
+ "spy_regime_ok": true,
+ "candidates": [
+  {
+   "ticker": "WDAY",
+   "close": 197.82,
+   "trigger": 202.08,
+   "sma20": 195.92,
+   "ret63_pct": 19.9,
+   "exit_plan": "close of 10th trading day",
+   "tradingview": "https://www.tradingview.com/chart/?symbol=WDAY"
+  },
+  {
+   "ticker": "SONY",
+   "close": 25.3,
+   "trigger": 25.48,
+   "sma20": 24.83,
+   "ret63_pct": 11.8,
+   "exit_plan": "close of 10th trading day",
+   "tradingview": "https://www.tradingview.com/chart/?symbol=SONY"
+  },
+  {
+   "ticker": "EQT",
+   "close": 55.38,
+   "trigger": 56.02,
+   "sma20": 53.98,
+   "ret63_pct": 3.7,
+   "exit_plan": "close of 10th trading day",
+   "tradingview": "https://www.tradingview.com/chart/?symbol=EQT"
+  }
+ ]
+}
