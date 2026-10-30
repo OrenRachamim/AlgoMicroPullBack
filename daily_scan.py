@@ -126,19 +126,23 @@ def format_message(res: dict) -> str:
     return "\n".join(lines)
 
 
-def send_via_relay(text: str, subject: str) -> dict:
-    """Send through the Val Town relay: Telegram + email in one call."""
+def send_via_relay(text: str, subject: str, log: dict | None = None) -> dict:
+    """Send through the Val Town relay: Telegram + email + blob archive in one call."""
     secret = os.getenv("VALTOWN_NOTIFY_SECRET")
     if not secret:
-        return {"telegram": False, "email": False, "note": "no VALTOWN_NOTIFY_SECRET"}
-    r = requests.post(RELAY_URL,
-                      json={"text": text, "secret": secret, "email_subject": subject},
-                      timeout=60)
+        return {"telegram": False, "email": False, "logged": False,
+                "note": "no VALTOWN_NOTIFY_SECRET"}
+    payload = {"text": text, "secret": secret, "email_subject": subject}
+    if log is not None:
+        payload["log_key"] = f"retest-scan-{log.get('scan_date', 'unknown')}"
+        payload["log_json"] = log
+    r = requests.post(RELAY_URL, json=payload, timeout=60)
     body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {}
     if r.status_code != 200 or not body.get("ok"):
         raise RuntimeError(f"relay failed ({r.status_code}): {body}")
     return {"telegram": True, "email": bool(body.get("emailed")),
-            "note": body.get("email_error") or ""}
+            "logged": bool(body.get("logged")),
+            "note": body.get("email_error") or body.get("log_error") or ""}
 
 
 def main() -> None:
@@ -158,9 +162,10 @@ def main() -> None:
     if not args.no_send:
         subject = (f"סריקת ריטסט {res['scan_date']}: "
                    f"{len(res['candidates'])} מועמדות")
-        st = send_via_relay(text, subject)
+        st = send_via_relay(text, subject, log=res)
         print(f"\n[delivery] telegram: {'sent' if st['telegram'] else 'skipped'}, "
-              f"email: {'sent' if st['email'] else 'skipped'}"
+              f"email: {'sent' if st['email'] else 'skipped'}, "
+              f"archive: {'saved' if st.get('logged') else 'skipped'}"
               + (f" ({st['note']})" if st.get("note") else ""))
 
 
